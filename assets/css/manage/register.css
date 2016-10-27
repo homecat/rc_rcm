@@ -1,0 +1,89 @@
+@import "reset.css";
+@charset "utf-8";
+body{font-family:"微软雅黑","黑体","宋体";font-size:13px;line-height:22px;color:#333;}
+
+
+.article-title-h1{font-size:24px;line-height:24px;margin-bottom:20px;}
+.article-title-h2{font-size:20px;line-height:24px;margin-bottom:15px;}
+.article-title-h3{font-size:16px;line-height:16px;margin-bottom:10px;}
+
+.article-table-blue{width:100%;background:#fff;}
+.article-table-blue tr td{border:none;padding:8px;border-right:1px solid #ccc;}
+.article-table-blue tr td a{text-decoration:underline;font-weight:bold;font-size:14px;color:#0568a9;}
+.article-table-blue tr td a:hover{text-decoration:none;}
+.article-table-blue tr td.no-rbd{border-right:none;}
+.article-table-blue tr.head-tr td{font-weight:bold;border-bottom:5px solid #016BB1;color:#525252;}
+.article-table-blue tr.last-tr td{border-bottom:1px solid #ccc;}
+.article-table-blue tr.color-tr td{background:#f2f2f2;}
+
+.common .input_public{background:url(border.gif) repeat-x;height:27px;color:#3a3a3a;border-radius:5px;padding:0 5px;border:1px solid #dadada; border-width:0 1px;}
+.common .form-select{background:url(border.gif) repeat-x;height:27px;color:#3a3a3a;border-radius:5px;padding:3px;border:1px solid #dadada; border-width:0 1px;}
+.common .input_public.disabled{color:#888;}
+.common .form-select.disabled{color:#888;}
+.common .form-button{height:37px;border:none;color:#fff;text-shadow:0 2px #003558;border-bottom:1px solid #8D8D8D;width:80px;border-radius:5px;}
+.common .form-btn-blue{background:url(blue.gif) repeat-x;}
+.common .form-btn-gray{background:url(gray.gif) repeat-x;}
+.common .form-btn-crimson{background:url(crimson.png) repeat-x;}
+.common .form-btn-disabled{cursor:default;}
+.common .form-btn-blue:hover{filter:alpha(opacity=90);moz-opacity:0.9;opacity:0.9;}
+.common .form-btn-gray:hover{filter:alpha(opacity=90);moz-opacity:0.9;opacity:0.9;}
+.common .article-list-ul{line-height:22px;}
+.common .article-list-ul li{padding:0 0 0 20px;background:url(bg17b.gif) no-repeat 4px 5px;}
+.common p{margin-bottom:10px;}
+
+
+/*-----注册模拟客户------*/
+.common_demo{}
+.common_demo .input_public{width:50%;}
+.common_demo .form-select{width:51%;}
+.common_demo .special_select{width:14.5%;}
+.common_demo .form-w25 .input_public{width:27%;}
+.common_demo .form-w35 .input_public{width:35%;}
+
+
+/*-----注册真实客户------*/
+
+/*-----第一步------*/
+.common_first{width:100%;margin:0;}
+.common_first .input_public{width:50%;}
+.common_first .form-select{width:51%;}
+.common_first .special_select{width:14.5%;}
+.common_first .three-select{width:16.67%;}
+.common_first .form-w25 .input_public{width:27%;}
+.common_first .form-w35 .input_public{width:35%;}
+
+/*-----第二步------*/
+.common_second{width:100%;margin:0;}
+.common_second .form-select{width:51%;}
+.common_second .input_public{width:50%;}
+.common_second .real_form_note{border:1px solid #DDDDDD;padding:5px;text-align:center;background:#F9F9F9;color:#D31558;font-weight:bold;width:60%;}
+
+/*-----第三步------*/
+.common_third{width:100%;margin:0}
+.common_third .answer-ul{width:100%;}
+.common_third .answer-ul li{width:100%;float:left;}
+.common_third .answer-ul li .answer-qe{width:25%;float:left;}
+.common_third .answer-ul li .answer-se{width:74%;float:left;}
+.common_third .input_public{width:50%;}
+.common_third .form-select{width:51%;}
+.common_third .common-block{padding-bottom:25px;width:100%; display:table;clear:both;}
+.common_third a{color:#00458D;}
+.common_third a:hover{color:#DA135C;}
+
+/*-----第四步------*/
+.common_fourth{width:100%;margin:0;}
+.common_fourth table td{padding:8px 0;}
+.common_fourth .input_public{width:50%;}
+.common_fourth .form-select{width:51%;}
+
+
+/*-----第五步------*/
+.common_fifth{width:100%;margin:0;}
+.common_fifth .table_fenshu{ border:1px solid #ccc; border-collapse:collapse;}
+.common_fifth .table_fenshu td{ border:1px solid #ccc; padding:6px;}
+.common_fifth .article-list-ul{ margin-left:10px;}
+.common_fifth .shenfen tr{height:65px;}
+.common_fifth .hide_show_title{cursor:pointer;}
+.common_fifth .hide_show_title:hover{color:#DA135C;text-decoration:underline;}
+
+

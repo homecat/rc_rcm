@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link href="<?php echo base_url()?>assets/css/manage/style.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<div class="p5">
+  <div class="position"><b>首页</b> - 客户中心 - 参数设置</div>
+  <div class="toolbar">
+    <input type="button" value="返回" onclick="location.href='<?php echo site_url('manage/member_params/index')?>'" />
+  </div>
+  <div class="errorbox red">
+    <?php if($code==10001)echo'参数已存在';?>
+  </div>
+  <form method="post">
+    <div class="scrollbar">
+      <table width="100%" cellspacing="0" cellpadding="5">
+        <tbody class="itemlist lh24">
+        <tr>
+          <td width="120">参数类别<span class="red">*</span></td>
+          <td><select name="parm_type" class="sWidth">
+                  <option value="">请选择</option>
+                  <option value="来源">来源</option>
+                  <option value="账户类别">账户类别</option>
+                  <option value="操作人">操作人</option>
+                  <option value="状态">状态</option>
+                  <option value="跟进类型">跟进类型</option>
+                  <option value="分析類型">分析類型</option>
+            </select>
+            <?php echo form_error('parm_type');?></td>
+        </tr>
+        <tr>
+            <td>参数排序<span class="red">*</span></td>
+            <td><input type="text" name="parm_sort" size="39" value="1000"/>
+              <?php echo form_error('parm_sort');?></td>
+        </tr>
+        <tr>
+            <td>参数名称<span class="red">*</span></td>
+            <td><input type="text" name="parm_name" size="39"/>
+              <?php echo form_error('parm_name');?></td>
+        </tr>
+        <tr>
+            <td width="120">参数描述<span class="red">*</span></td>
+            <td><textarea name="parm_info"></textarea>
+                <?php echo form_error('parm_info');?></td>
+        </tr>
+          <tr>
+            <td></td>
+            <td><input type="submit" value="提交" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
+  <div class="selectbar"></div>
+  <div class="toolbar"></div>
+</div>
+</body>
+</html>

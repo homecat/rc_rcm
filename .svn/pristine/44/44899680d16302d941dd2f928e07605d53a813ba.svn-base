@@ -1,0 +1,6 @@
+
+
+
+bat文件			数据名称				执行间隔	运行方式
+message_task.bat	消息发送程序，包括email发送		5分钟		永久
+create_demo.bat         创建模拟账号

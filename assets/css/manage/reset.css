@@ -1,0 +1,152 @@
+@charset "utf-8";
+/** 清除内外边距 **/
+body, h1, h2, h3, h4, h5, h6, hr, p,
+blockquote, /* structural elements 结构元素 */
+dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+pre, /* text formatting elements 文本格式元素 */
+form,/* fieldset, legend, /* button, input, textarea, /* form elements 表单元素 */
+/*th, td,  table elements 表格元素 */
+img/* img elements 图片元素 */{border:medium none;margin:0;padding:0;}
+/** 设置默认字体 **/
+body,button, input, select, textarea {font: 12px/1.5 '微软雅黑','黑体','宋体',Arial,tahoma, Srial, helvetica, sans-serif;}
+input[type="button"],input[type="reset"],input[type="submit"]{cursor:pointer;}
+h1, h2, h3, h4, h5, h6 { font-size: 100%; }
+em{font-style:normal;}
+table{border-collapse:collapse;}
+/** 重置列表元素 **/
+ul, ol{list-style: none;}
+/** 重置超链接元素 **/
+a {cursor:pointer; text-decoration: none; outline:none;}
+a:hover { text-decoration: underline;}
+/** 重置图片元素 **/
+img{ border:0px;vertical-align:bottom;}
+/** 重置表格元素 **/
+/*table { border-collapse: collapse; border-spacing: 0;}*/
+
+/** 列表元素 **/
+ol.disc{padding-left:20px;list-style:disc;}
+ol.square{padding-left:20px;list-style:square;}
+ol.decimal{padding-left:25px;list-style:decimal;}
+ol.lower{padding-left:25px;list-style:lower-alpha;}
+ol.upper{padding-left:25px;list-style:upper-alpha;}
+
+/** 位置元素 **/
+.fl{float:left;}
+.fr{float:right;}
+.ofh{overflow:hidden;}
+.cb{clear:both;}
+.cp{cursor:pointer;}
+.tal{text-align:left;}
+.tar{text-align:right;}
+.tac{text-align:center;}
+/** 显示隐藏 **/
+.dn{display:none;}
+.db{display:block;}
+/** 边距元素 **/
+.p5{padding:5px;}
+.pt5{padding-top:5px;}
+.pb5{padding-bottom:5px;}
+.pl5{padding-left:5px;}
+.pr5{padding-right:5px;}
+.p10{padding:10px;}
+.pt10{padding-top:10px;}
+.pb10{padding-bottom:10px;}
+.pl10{padding-left:10px;}
+.pr10{padding-right:10px;}
+.p15{padding:15px;}
+.pt15{padding-top:15px;}
+.pb15{padding-bottom:15px;}
+.pl15{padding-left:15px;}
+.pr15{padding-right:15px;}
+.p20{padding:20px;}
+.pt20{padding-top:20px;}
+.pb20{padding-bottom:20px;}
+.pl20{padding-left:20px;}
+.pr20{padding-right:20px;}
+.p30{padding:30px;}
+.pt30{padding-top:30px;}
+.pb30{padding-bottom:30px;}
+.pl30{padding-left:30px;}
+.pr30{padding-right:30px;}
+.mac{margin:auto;}
+.m5{margin:5px;}
+.mt5{margin-top:5px;}
+.mb5{margin-bottom:5px;}
+.ml5{margin-left:5px;}
+.mr5{margin-right:5px;}
+.m10{margin:10px;}
+.mt10{margin-top:10px;}
+.mb10{margin-bottom:10px;}
+.ml10{margin-left:10px;}
+.mr10{margin-right:10px;}
+.m15{margin:15px;}
+.mt15{margin-top:15px;}
+.mb15{margin-bottom:15px;}
+.ml15{margin-left:15px;}
+.mr15{margin-right:15px;}
+.m20{margin:20px;}
+.mt20{margin-top:20px;}
+.mb20{margin-bottom:20px;}
+.ml20{margin-left:20px;}
+.mr20{margin-right:20px;}
+.m30{margin:30px;}
+.mt30{margin-top:30px;}
+.mb30{margin-bottom:30px;}
+.ml30{margin-left:30px;}
+.mr30{margin-right:30px;}
+/** 字体元素 **/
+.fb{font-weight:bold;}
+.fs10{font-size:10px;}
+.fs12{font-size:12px;}
+.fs13{font-size:13px;}
+.fs14{font-size:14px;}
+.fs15{font-size:15px;}
+.fs16{font-size:16px;}
+.fs18{font-size:18px;}
+.fs20{font-size:20px;}
+.fs22{font-size:22px;}
+/** 行高元素 **/
+.lh16{line-height:16px;}
+.lh18{line-height:18px;}
+.lh20{line-height:20px;}
+.lh22{line-height:22px;}
+.lh24{line-height:24px;}
+.lh26{line-height:26px;}
+/** 宽度元素 **/
+.wp30{width:30%;}
+.wp40{width:40%;}
+.wp50{width:50%;}
+.wp60{width:60%;}
+.wp70{width:70%;}
+.wp80{width:80%;}
+.wp90{width:90%;}
+.wp100{width:100%;}
+.w50{width:60px;}
+.w60{width:60px;}
+.w70{width:70px;}
+.w80{width:80px;}
+.w90{width:90px;}
+.w100{width:100px;}
+.w120{width:120px;}
+.w150{width:150px;}
+.w200{width:200px;}
+.w250{width:250px;}
+.w300{width:300px;}
+.w350{width:350px;}
+
+.sWidth{width:244px;}
+/** 颜色元素 **/
+.fc0{color:#000;}
+.fc3{color:#333;}
+.fc6{color:#666;}
+.fc9{color:#999;}
+.fcf{color:#FFF;}
+.bcf{background-color:#FFF;}
+.bc0{background-color:#000;}
+.bcf0{background-color:#F00;}
+/*border*/
+.mainborder{border:1px solid #e3e6eb;}
+.mainbt{border-top:1px solid #e3e6eb;}
+.mainbr{border-right:1px solid #e3e6eb;}
+.mainbb{border-bottom:1px solid #e3e6eb;}
+.mainbl{border-left:1px solid #e3e6eb;}

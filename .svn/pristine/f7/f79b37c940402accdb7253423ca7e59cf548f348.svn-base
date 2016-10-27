@@ -1,0 +1,284 @@
+@import "reset.css";
+
+body{font-family:"新細明體","微软雅黑","黑体","宋体";font-size:13px;line-height:22px;color:#333;}
+a{color:#7B1415;}
+.red{color:#f00;}
+.green{color:#090;}
+
+
+.tabsbar{border-bottom:3px solid #B82327;overflow:hidden;}
+.tabsbar li{display:inline-block;float:left;padding:4px 15px;text-align:center;cursor:pointer; margin-bottom:-3px;}
+.tabsbar li.over{background:#B82327;color:#fff;font-weight: bold;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}
+
+
+/*------------------------ 栏目页面样式 ------------------------*/
+.article-title-h1{font-size:24px;line-height:24px;margin-bottom:20px;}
+.article-title-h2{font-size:20px;line-height:24px;margin-bottom:15px;}
+.article-title-h3{font-size:16px;line-height:16px;margin-bottom:10px;}
+
+/*------------------------ 线条通用样式 ------------------------*/
+.article-line-hn{clear:both;border-bottom:1px solid #ccc;}
+.article-line-hr{clear:both;border-bottom:1px solid #ccc;padding-top:30px;margin-bottom:30px;}
+
+/*------------------------ 更多通用样式 ------------------------*/
+.article-btn-gray a{clear:both;color:#fff;padding:3px 5px;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;
+					border-bottom:1px solid #8d8d8d;background:url(gray.gif) repeat-x;font-size:12px;}
+.article-btn-gray a:hover{filter:alpha(opacity=70);moz-opacity:0.7;opacity:0.7;text-decoration:none;color:#fff;}
+.article-btn-blue a,
+.article-btn-pink a,
+.article-btn-out a{
+    border-bottom:1px solid #8d8d8d;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;
+	border-radius:3px;
+	padding:3px 5px 0px;
+	font-size:12px;
+    color: #fff;
+}
+.article-btn-blue a:hover,
+.article-btn-pink a:hover,
+.article-btn-out a:hover{filter:alpha(opacity=70);moz-opacity:0.7;opacity:0.7;text-decoration:none;color:#fff;}
+.article-btn-blue a{background:url(blue_pink.png) left top repeat-x;}
+.article-btn-pink a{background:url(blue_pink.png) left -50px repeat-x;}
+.article-btn-out a{background:url(out.png) left top repeat-x;}
+
+/*------------------------ 列表通用样式 ------------------------*/
+.article-list-ul{line-height:22px;}
+.article-list-ul li{padding:3px 0 3px 20px;background:url(ul_li.gif) no-repeat 4px 8px;}
+
+/*------------------------ 警告通用样式 ------------------------*/
+.article-risk-warningt{border:1px solid #ddd;padding:15px;font-size:12px;}
+.article-risk-warningt a{color:#00458D;}
+.article-risk-warningt a:hover{color:#DA135C;}
+
+/*------------------------ 表单通用样式 ------------------------*/
+.article-form-part .disabled{cursor:default;}
+.article-form-part .input_public,
+.article-form-part .form-text{background:url(border.gif) repeat-x;color:#3a3a3a;height:27px;border-radius:5px;padding:0 5px;border:1px solid #DADADA;border-width:0 1px;}
+.article-form-part .form-select{background:url(border.gif) repeat-x;color:#3a3a3a;height:27px;border-radius:5px;padding:3px 5px;border:1px solid #DADADA;border-width:0 1px;}
+.article-form-part .form-button{height:37px;border:none;color:#fff;text-shadow:0 2px #003558;border-bottom:1px solid #8D8D8D;
+										width:80px;border-radius:5px;}
+.article-form-part .form-btn-blue{background:url(blue.gif) repeat-x;}
+.article-form-part .form-btn-crimson{background:url(crimson.png) repeat-x;}	
+.article-form-part .form-btn-gray{background:url(gray.gif) repeat-x;}		
+.article-form-part .form-button:hover{filter:alpha(opacity=90);moz-opacity:0.9;opacity:0.9;text-decoration:none;color:#fff;}
+
+/*------------------------ 表格通用样式 ------------------------*/
+.article-table-blue{width:100%;background:#fff;}
+.article-table-blue tr td{padding:5px;border-right:1px solid #ccc;}
+.article-table-blue tr td.no-rbd{border-right:none;}
+.article-table-blue tr.head-tr{color:#525252;font-weight:bold;}
+.article-table-blue tr.head-tr td{border-bottom:5px solid #B82327;}
+.article-table-blue tr.last-tr td{border-bottom:1px solid #ccc;}
+.article-table-blue tr.color-tr td{background:#f2f2f2;}
+
+
+/*------------------------ 内页样式 ------------------------*/
+
+/** 内页顶部分  **/
+.memmber_head{margin:0 auto;height:60px;padding:10px 20px;}
+.memmber_head .head_logo{width:250px;}
+.memmber_head .head_line{background:url(head_line.png) no-repeat center;width:20px;}
+.shenfen-form tr{height:65px;}
+
+
+/** 内页左部分 **/
+.member_left{width:26%;float:left;margin-left:15px;}
+.member_left h2{background:#B82327;color:#fff;padding:10px 15px;font-size:15px;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;}
+.member_left .subnav{margin-top:10px;background:#f5f5f5;border-bottom: 1px solid #ccc; padding:15px 0;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;}
+.member_left .subnav a{display:block;}
+.member_left .subnav a:hover{background:#eee;}
+.member_left .subnav dt{margin:5px 0;font-weight:bold;}
+.member_left .subnav dt a{padding-left:15px;}
+.member_left .subnav dt span{padding-left:15px;}
+.member_left .subnav dd{margin:5px 0;}
+.member_left .subnav dd a{padding-left:30px;}
+.member_left .subnav .select a{background:#fff;color:#B82327;}
+.member_left .subnav .select a:hover{background:#fff; text-decoration:none;}
+.member_right{margin-left:30%;margin-right:15px;}
+
+
+/** 客户概览 **/
+.gailan{}
+.gailan .form-select{width:60%;}
+.gailan .form-text.disabled{color:#888;}
+
+
+/** 网上存款 **/
+.member_deposit{}
+.member_deposit .article-form-part .form-text{width:50%;}
+.member_deposit .article-form-part .form-select{width:51%;}
+
+
+/** 网上取款 **/
+.member_withdrawal{}
+.member_withdrawal .article-form-part .form-text{width:50%;}
+.member_withdrawal .article-form-part .form-text.disabled{color:#888;}
+.member_withdrawal .article-form-part .form-select{width:51%;}
+
+
+/** 网上转账 **/
+.member_transfer .article-form-part h3{background:#B82327;color:#fff;padding:3px 10px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}
+.member_transfer .article-form-part .form-text.disabled{color:#888;}
+
+
+/** 申请交易账号 **/
+.member_transaction .article-form-part .form-select{width:51%;}
+.member_transaction h3.mt4_information{background:#B82327;color:#fff;padding:3px 10px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}
+
+/** 客户密码 **/
+.member_password{}
+.member_password .article-form-part .form-text{width:50%;}
+.member_password .article-form-part .form-select{width:51%;}
+.member_password .article-form-part .form-w25{width:25%;}
+
+/** 资料修改 **/
+.member_information .article-form-part .form-select{width:51%;}
+.member_information .article-form-part .form-text{width:50%;}
+.member_information .article-form-part .input_public{width:50%;}
+.member_information  .form-w16 .input_public{width:16%;}
+.member_information  .form-w26 .form-select{width:24%;}
+.member_information  .form-w26 .input_public{width:25%;}
+.member_information .article-form-part .special_select{width:16.8%;}
+.member_information h3.mt4_information{background:#B82327;color:#fff;padding:3px 10px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}
+
+
+
+/*------------------------ 登录样式 ------------------------*/
+
+/** 忘记密码 **/
+.member_forget{width:780px;margin:50px auto 0;}
+.member_forget .ml150{margin-left:150px;}
+.member_forget .member_logo{}
+.member_forget .member_h3{text-align:center;}
+.member_forget .article-form-part .form-text{width:50%;}
+.member_forget .article-form-part .form-w25{width:25%;}
+
+
+/** 登录页面 **/
+#member_login{
+	background:#860e22 url(login_bg.png) center no-repeat;
+}
+.login_mainbox {
+	width:770px;
+	margin:14% auto 0;
+}
+.login_content {
+	background:#fff;
+	-moz-border-radius:5px;      /* Gecko browsers */
+    -webkit-border-radius:5px;   /* Webkit browsers */
+    border-radius:5px;           /* W3C syntax */
+}
+.content_left {
+	float: left;
+}
+.content_left img {
+	margin-top:75px;
+	margin-left:28px;
+}
+
+.content_right {
+	margin-left:275px;
+	background:#eee;
+	padding-left:38px;
+	min-height:250px;
+	padding-bottom:25px;
+	-moz-border-radius:0 5px 5px 0;      /* Gecko browsers */
+    -webkit-border-radius:0 5px 5px 0;   /* Webkit browsers */
+    border-radius:0 5px 5px 0;           /* W3C syntax */
+}
+.content_right .top_title {
+	color:#3e3e3e;
+	font-size:16px;
+	font-weight:bold;
+	padding-top:25px;
+	padding-bottom:10px;
+}
+.content_right .member_table td{
+	padding:7px 0;
+}
+.content_right .member_email,
+.content_right .member_password,
+.content_right .member_captcha{
+	height:40px;
+	display:block;
+	position:relative;
+	-moz-border-radius:5px;      /* Gecko browsers */
+    -webkit-border-radius:5px;   /* Webkit browsers */
+    border-radius:5px;           /* W3C syntax */
+	background:url(login_icon.png) left -99px;
+}
+
+.content_right .member_email input{
+	color:#fff;
+	border:none;
+	margin-top:12px;
+	padding-left:28px;
+	background:url(login_icon.png) no-repeat 5px top;
+}
+.content_right .member_password input{
+	color:#fff;
+	border:none;
+	margin-top:12px;
+	padding-left:28px;
+	background:url(login_icon.png) no-repeat 5px -56px;
+}
+.content_right .member_captcha input{
+	color:#fff;
+	border:none;
+	margin-top:12px;
+	padding-left:10px;
+	background:none;
+}
+
+.content_right .member_submit,
+.content_right .member_cancel {
+	background:url(login_icon.png) left -158px;
+	width:156px;
+	height:35px;
+	border:none;
+	color:#fff;
+	font-family:"微软雅黑";
+	font-weight:bold;
+    -moz-border-radius:5px;      /* Gecko browsers */
+    -webkit-border-radius:5px;   /* Webkit browsers */
+    border-radius:5px;           /* W3C syntax */
+}
+.content_right .member_cancel{
+	background-position: left -213px;
+}
+.content_right a.forget{
+	top:10px;
+	right:5px;
+	color:#fff;
+	position:absolute;
+	text-decoration:none;
+}
+.content_right a.forget:hover{
+	text-decoration:underline;
+}
+
+.login_footer{
+	padding-top: 20px;
+	border-bottom: 1px solid #ad454c;
+	height: 80px;
+}
+.login_footer .footer_prompt {
+	color:#fff;
+	width:580px;
+	float:left;
+	font-size:12px;
+	margin-top:10px;
+	line-height:18px;
+}
+.login_footer .footer_help {
+	float:right;
+}
+
+
+
+
+
+
+
+	

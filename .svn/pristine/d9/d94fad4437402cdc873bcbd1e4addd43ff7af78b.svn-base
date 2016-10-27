@@ -1,0 +1,185 @@
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class  Member_export2_model  extends  Status_base_model
+{
+	private $time_start = '';
+	private $time_end = '';
+    private $member_status= '';
+    private $sales_man= '';
+    private $member_from= '';
+    
+	public function __construct()
+    {
+    	parent::__construct();
+    	$this->table = 'member_account';
+    }
+    /**
+	 * @return the $member_from
+	 */
+	public function getMember_from() {
+		return $this->member_from;
+	}
+
+	/**
+	 * @param string $member_from
+	 */
+	public function setMember_from($member_from) {
+		$this->member_from = $member_from;
+	}
+	/**
+	 * @return the $member_status
+	 */
+	public function getMember_status() {
+		return $this->member_status;
+	}
+
+	/**
+	 * @return the $sales_man
+	 */
+	public function getSales_man() {
+		return $this->sales_man;
+	}
+
+	/**
+	 * @param string $member_status
+	 */
+	public function setMember_status($member_status) {
+		$this->member_status = $member_status;
+	}
+
+	/**
+	 * @param string $sales_man
+	 */
+	public function setSales_man($sales_man) {
+		$this->sales_man = $sales_man;
+	}
+
+    /**
+	 * @return the $time_start
+	 */
+	public function getTime_start() {
+		return $this->time_start;
+	}
+
+	/**
+	 * @return the $time_end
+	 */
+	public function getTime_end() {
+		return $this->time_end;
+	}
+
+	/**
+	 * @param string $time_start
+	 */
+	public function setTime_start($time_start) {
+		$this->time_start = $time_start;
+	}
+
+	/**
+	 * @param string $time_end
+	 */
+	public function setTime_end($time_end) {
+		$this->time_end = $time_end;
+	}
+	
+	public function get_member_account($action_id){
+		if(1 == $action_id){
+			$diff_title = '<td>最後更新日期</td>';
+			$dt = 'update_time';
+		}
+		if(2 == $action_id){
+			$diff_title = '<td>创建日期</td>';
+			$dt = 'create_time';
+		}
+    	$this->db->start_cache();
+        //获取时间   用户状态  负责人  来源
+        $member_from   =  $this->getMember_from();
+    	$time_start    =  $this->getTime_start();
+    	$time_end      =  $this->getTime_end();
+    	$member_status =  $this->getMember_status();   
+    	$sales_man     =  $this->getSales_man();    
+    	$this->db->stop_cache();
+    	$title = 'member_tarde_follow_info';
+    	$lang  = $this->session->userdata('lang');
+    	$content = '<tr align="center">';
+    	$content .= '<td>ID</td>';
+    	$content .= '<td>姓名</td>';
+    	$content .= '<td>QQ1</td>';
+    	$content .= '<td>QQ2</td>';
+    	$content .= '<td>手機號碼1</td>';
+    	$content .= '<td>手機號碼2</td>';
+    	$content .= '<td>狀態</td>';
+    	$content .= '<td>来源</td>';
+    	$content .= '<td>渠道</td>';
+    	$content .= '<td>建立人</td>';
+    	$content .= '<td>負責人</td>';
+    	$content .= '<td>开户人</td>';
+    	$content .= '<td>MT4賬戶</td>';
+    	$content .= '<td>RC賬戶</td>';
+    	$content .= $diff_title;
+    	// 搜索条件
+    	$this->db->where( $dt . ' <= ' , $time_end);
+    	$this->db->where( $dt . ' >= ' , $time_start);
+        $str='';
+        $res='';
+    	if(is_array($member_from) && !empty($member_from)){
+    		foreach($member_from as $k =>$v){ 
+   		    	$str .= $v.',';
+    		    $res = rtrim($str,','); 
+    		}	
+     	  $arr = explode(',',$res);
+    	  $this->db->where_in('member_from',$arr);	   	
+    	}
+    	if( !empty( $sales_man )) $this->db->where( 'sales_man' , $sales_man );
+    	if( !empty( $member_status )){
+    		switch ($member_status){
+    			case 'S1-S5':
+    				$status = array( 'Stage1' , 'Stage2' , 'Stage3' , 'Stage4' , 'Stage5' );
+    				$this->db->where_in( 'member_status' , $status );
+    				break;
+    			case 'S1-S4':
+    				$status = array( 'Stage1' , 'Stage2' , 'Stage3' , 'Stage4' );
+    				$this->db->where_in( 'member_status' , $status );
+    				break;
+    			default:
+    				$this->db->where( 'member_status' , $member_status );
+    				break;
+    		}
+    	}
+    	$this->db->order_by('create_time','desc'); 
+    	$query = $this->db->get( $this->table );
+    	$result = $query->result_array();
+    	$content .= '<td>QQ1添加</td>';
+    	$content .= '<td>QQ2添加</td>';
+    	$content .= '<td>微信添加</td>';
+    	$content .= '</tr>';
+    	if(count($result)){
+    		foreach($result as $item){
+    			$content .= '<tr align="center">';
+    			$content .= '<td style="vnd.ms-excel.numberformat:#">'.$item['member_id'].'</td>';
+    			$content .= '<td>'.$item['member_name'].'</td>';
+    			$content .= '<td style="vnd.ms-excel.numberformat:#">'.$item['member_qq'].'</td>';
+    			$content .= '<td style="vnd.ms-excel.numberformat:#">'.$item['member_qq2'].'</td>';
+    			$content .= '<td style="vnd.ms-excel.numberformat:#">'.$item['member_phone'].'</td>';
+    			$content .= '<td style="vnd.ms-excel.numberformat:#">'.$item['member_phone2'].'</td>';
+    			$content .= '<td>'.$item['member_status'].'</td>';
+    			$content .= '<td>'.$item['member_from'].'</td>';
+    			$content .= '<td>'.$item['channel'].'</td>';
+    			$content .= '<td>'.$this->user_list_model->getUserGlobal($item['creater']).'</td>';
+    			$content .= '<td>'.$this->user_list_model->getUserGlobal($item['sales_man']).'</td>';
+    			$content .= '<td>'.$this->user_list_model->getUserGlobal($item['member_opener']).'</td>';
+    			$content .= '<td style="vnd.ms-excel.numberformat:#">'.$item['real_account'].'</td>';
+    			$content .= '<td>'.$item['rc_real_account'].'</td>';
+    			$content .= '<td style="vnd.ms-excel.numberformat:yyyy-mm-dd hh:mm:ss">'.$item[$dt].'</td>';
+    			if( empty($item['member_qq'])){$content .= '<td></td>';}elseif ($item['member_qq_addfriend']==1){$content .= '<td>Y</td>';}else{$content .= '<td>N</td>';}
+    			if( empty($item['member_qq2'])){$content .= '<td></td>';}elseif ($item['member_qq2_addfriend']==1){$content .= '<td>Y</td>';}else{$content .= '<td>N</td>';}
+    			if( empty($item['member_weixin'])){$content .= '<td></td>';}elseif ($item['member_weixin_addfriend']==1){$content .= '<td>Y</td>';}else{$content .= '<td>N</td>';}
+    			$content .= '</tr>';
+    		}
+    		$this->load->helper('excel_helper');
+    		return createExcel($title,$content);
+    	}
+     	redirect(site_url('manage/member_export2'));
+    }
+    
+}
