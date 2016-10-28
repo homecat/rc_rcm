@@ -566,9 +566,10 @@ class Member_account extends MHT_Controller
     
     public function add($page = 1)
     {
+        $check_member_qq = 1100;//数据已存在
         $now = date('Y-m-d H:i:s');
-        $account = $this->input->post(null, true);
         $user_id = $this->session->userdata['user_id'];
+        $account = $this->input->post(null, true);
         $account['creater']       = $user_id;
         $account['sales_id']      = $this->session->userdata['sales_id'];
         $account['sales_man']     = $user_id;
