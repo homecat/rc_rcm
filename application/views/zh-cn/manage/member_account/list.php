@@ -61,30 +61,31 @@ function resetForm()
 }
 function checkAdd()
 {
-    alert('test ...');
-    return false;
-	var add_member_name    = $('#add_member_name').val();
-	var add_member_qq    = $('#add_member_qq').val();
-	var add_member_weixin    = $('#add_member_weixin').val();
-	var add_member_phone = $('#add_member_phone').val();
-    var add_member_status  = $('#add_member_status').val();
-    var add_member_from  = $('#add_member_from').val();
-    var add_channel  = $('#add_channel').val();
-    var add_member_info  = $('#add_member_info').val();
 
-	if(! add_member_qq && ! add_member_phone && ! add_member_weixin)
-	{
-		$('.submit_back').empty();
-		$('.first_back_note').show();
-		return false;
-	}else if(!add_member_name !add_member_status&& !add_member_from&& !add_channel&& !add_member_info){
-        $('.back_note').show();
+	var add_member_name    = $('#add_member_name').val();
+	var add_member_qq      = $('#add_member_qq').val();
+	var add_member_weixin  = $('#add_member_weixin').val();
+	var add_member_phone   = $('#add_member_phone').val();
+    var add_member_status  = $('#add_member_status').val();
+    var add_member_from    = $('#add_member_from').val();
+    var add_channel        = $('#add_channel').val();
+    var add_member_info    = $('#add_member_info').val();
+
+	if((add_member_qq || add_member_phone || add_member_weixin)){
+        $('.first_back_note').hide();
+        if(!add_member_name || !add_member_status || !add_member_from || !add_channel || !add_member_info){
+            $('.back_note').show();
+            return false;
+        }else{
+            return true;
+        }
+	}else{
+        $('.submit_back').empty();
+ //       $('#add_member_account_submit').attr('disabled','');
+        $('.first_back_note').show();
         return false;
     }
-	$('#add_member_account_submit').attr('disabled','');
-	return true;
 }
-
 
 var page = 1;
 var member_id = 0;
@@ -125,8 +126,8 @@ function editBoxHide()
                     <td><input type="text" name="member_weixin" id="add_member_weixin" value="<?php echo set_value('member_weixin');?>" /></td>
                     <td><?php $status = $this->member_params_model->get_parm_options('状态');?>
                         <select name="member_status" id="add_member_status">
-                            <?php foreach($status as $k=>$item):?>
                                 <option value="">请选择</option>
+                            <?php foreach($status as $k=>$item):?>
                                 <option value="<?php echo $item;?>" <?php echo set_select('member_status',$item);?>><?php echo $item;?></option>
                             <?php endforeach;?>
                         </select>
