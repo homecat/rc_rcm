@@ -16,6 +16,27 @@ class  Member_account_model  extends  Member_base_model
 		$this->increm = 'member_id';
 	}
 
+    public function Is_exists($account){
+        $this->db->select( '*');
+        $this->db->from($this->table);
+        if($account['member_qq'] !=''){
+            $this->db->where('member_qq =', $account['member_qq']);
+            $this->db->or_where('member_qq2 =', $account['member_qq']);
+        }
+        if($account['member_phone'] !=''){
+            $this->db->where('member_phone =', $account['member_phone']);
+            $query = $this->db->or_where('member_phone2 =', $account['member_phone']);
+            $result = $this->db->get()->result_array();
+            if( count($result) > 0 ){
+                $this->is_exists_num['phone'] = 1100;
+                return true;
+            }
+        }
+        if($account['member_weixin'] !=''){
+            $this->db->where('member_weixin =', $account['member_weixin']);
+        }
+    }
+
   //通过用户QQ查询 负责人的id 通过负责人的id 查询负责团队pid
     public function check_qq_sales($member_qq,$member_id=''){
         $this->db->select("a.member_qq as amember_qq,
@@ -41,7 +62,7 @@ class  Member_account_model  extends  Member_base_model
      	
     	return $this->check_sales_id($list);
     }
-    
+
     //通过用户手机查询 负责人的id 通过负责人的id 查询负责团队pid
       public function check_phone_sales($member_phone, $member_id='', $isarr = false){
         $this->db->select("a.member_phone as amember_phone,

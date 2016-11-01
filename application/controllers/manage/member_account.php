@@ -564,9 +564,8 @@ class Member_account extends MHT_Controller
     	return $this->load->view('manage/member_account/edit', $data);
     }
     
-    public function add($page = 1)
+    public function add($sign = 0, $page = 1, $limit = 20)
     {
-        $check_member_qq = 1100;//数据已存在
         $now = date('Y-m-d H:i:s');
         $user_id = $this->session->userdata['user_id'];
         $account = $this->input->post(null, true);
@@ -574,15 +573,31 @@ class Member_account extends MHT_Controller
         $account['sales_id']      = $this->session->userdata['sales_id'];
         $account['sales_man']     = $user_id;
         $account['create_time']   = $now;
-        $this->member_account_model->save(0, $account);
-        //存储状态
-        if(!empty($account['member_status'])){
-            $status['member_status'] = $account['member_status'];
-            $status['member_id'] = $this->db->insert_id();
-            $status['creater'] = $user_id;
-            $status['create_time'] = $now;
-            $this->member_status_model->save(0, $status );
-        }
+
+        if($qq) echo 'QQ存在了';
+        else if($phone) echo 'phone存在了';
+        else if($weixin) echo 'weixin存在了';
+        else
+            save();
+
+        $this->member_account_model->Is_exists($account);
+            if(is_exists($account)){
+                $check_member_qq = 1100;//数据已存在
+            }else{
+                $this->member_account_model->save(0, $account);
+                //存储状态
+                if(!empty($account['member_status'])){
+                    $status['member_status'] = $account['member_status'];
+                    $status['member_id'] = $this->db->insert_id();
+                    $status['creater'] = $user_id;
+                    $status['create_time'] = $now;
+                    $this->member_status_model->save(0, $status );
+                }
+            }
+       // }
+        $data['sign']   = $sign;
+        $data['page']   = $page;
+        $data['limit']  = abs($limit);
         return redirect(site_url('manage/member_account/index/' . $page));
     }
     // 删除数据

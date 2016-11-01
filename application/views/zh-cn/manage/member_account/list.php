@@ -61,7 +61,6 @@ function resetForm()
 }
 function checkAdd()
 {
-
 	var add_member_name    = $('#add_member_name').val();
 	var add_member_qq      = $('#add_member_qq').val();
 	var add_member_weixin  = $('#add_member_weixin').val();
@@ -71,7 +70,7 @@ function checkAdd()
     var add_channel        = $('#add_channel').val();
     var add_member_info    = $('#add_member_info').val();
 
-	if((add_member_qq || add_member_phone || add_member_weixin)){
+	if(add_member_qq || add_member_phone || add_member_weixin){
         $('.first_back_note').hide();
         if(!add_member_name || !add_member_status || !add_member_from || !add_channel || !add_member_info){
             $('.back_note').show();
@@ -109,14 +108,14 @@ function editBoxHide()
         <form method="post" onsubmit="return checkAdd();" name="add_memner_account" id="add_memner_accounts" action="<?php echo site_url('manage/member_account/add').'/'.$sign.'/'.$page;?>">
             <table cellpadding="0" cellspacing="0">
                 <tr>
-                    <td>姓名<span class="back_note red dn">必填</span><?php echo form_error('member_name');?></td>
-                    <td>QQ<span class="first_back_note red dn">必须填一项</span><span class="submit_back red"><?php if(isset($check_member_qq)&&$check_member_qq==1100):?>已存在<?php elseif(isset($check_member_qq)&&$check_member_qq==1200):?>必填一项<?php else:?><?php echo form_error('member_qq');?><?php endif;?></span></td>
-                    <td>手机号码1<span class="first_back_note red dn">必须填一项</span><span class="submit_back red"><?php if(isset($check_member_phone)&& $check_member_phone==1100):?>已存在<?php elseif(isset($check_member_phone)&& $check_member_phone==1200):?>必填一项<?php else:?><?php echo form_error('member_phone');?><?php endif;?> </span></td>
-                    <td>微信<span class="first_back_note red dn">必须填一项</span><span class="submit_back red"><?php if(isset($member_weixin)&& $check_member_weixin==1100):?>已存在<?php elseif(isset($check_member_weixin)&& $check_member_weixin==1200):?>必填一项<?php else:?><?php echo form_error('check_member_wechat');?><?php endif;?></span></td>
-                    <td>状态<span class="back_note red dn">必填</span><?php echo form_error('member_status');?></td>
-					<td>来源<span class="back_note red dn">必填</span><span class="submit_back red"><?php if(isset($check_from_channel) && $check_from_channel==1100):?>必选<?php endif;?></span></td>
-					<td>渠道<span class="back_note red dn">必填</span><span class="submit_back red"><?php if(isset($check_from_channel) && $check_from_channel==1100):?>必选<?php endif;?></span></td>
-                    <td>描述<span class="back_note red dn">必填</span><?php echo form_error('member_info');?><span class="submit_back red"><?php if(isset($check_member_name) && $check_member_name == 1300 ):?><?php if(isset($user_name)):?><?php echo '负责人='.$user_name;?><?php endif;?><?php if(isset($update_time)):?><?php echo '更新时间='.$update_time;?><?php endif;?><?php if(isset($real_account)):?><?php echo 'MT4='.$real_account;?><?php endif;?><?php endif;?></span></td>
+                    <td>姓名<span class="back_note red dn">必填</span></td>
+                    <td>QQ<span class="first_back_note red dn">必须填一项</span><span class="submit_back red"></span></td>
+                    <td>手机号码1<span class="first_back_note red dn">必须填一项</span><span class="submit_back red"></span></td>
+                    <td>微信<span class="first_back_note red dn">必须填一项</span><span class="submit_back red"></span></td>
+                    <td>状态<span class="back_note red dn">必填</span></td>
+					<td>来源<span class="back_note red dn">必填</span></td>
+					<td>渠道<span class="back_note red dn">必填</span></td>
+                    <td>描述<span class="back_note red dn">必填</span></span></td>
                     <td class="mainbbn"></td>
                 </tr>
                 <tr>
