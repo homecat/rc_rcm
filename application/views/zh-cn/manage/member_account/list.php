@@ -63,8 +63,8 @@ function checkAdd()
 {
 	var add_member_name    = $('#add_member_name').val();
 	var add_member_qq      = $('#add_member_qq').val();
-	var add_member_weixin  = $('#add_member_weixin').val();
 	var add_member_phone   = $('#add_member_phone').val();
+	var add_member_weixin  = $('#add_member_weixin').val();
     var add_member_status  = $('#add_member_status').val();
     var add_member_from    = $('#add_member_from').val();
     var add_channel        = $('#add_channel').val();
@@ -76,7 +76,25 @@ function checkAdd()
             $('.back_note').show();
             return false;
         }else{
-            return true;
+            $.ajax({
+                type:'post',
+                dataType:'json',
+                url: '<?php echo site_url('manage/member_account/ajax');?>',
+                data:'member_qq=' + add_member_qq + '&member_phone='+ add_member_phone + '&member_weixin=' + add_member_weixin,
+                success:function(result) {
+                    $.each(result,function(i, item){
+                        if(item == 1100){
+                           $("."+i).html("已存在");
+                        }else{
+                            $("."+i).html('');
+                        }
+                    })
+                 },
+                error:function(){
+                    alert('line:90, access error');
+                }
+            });
+            return false;
         }
 	}else{
         $('.submit_back').empty();
@@ -105,17 +123,17 @@ function editBoxHide()
 <!-- 2016-5-24 -->
 <div class="p5" style="min-width:1382px;">
     <div class="mainstyle">
-        <form method="post" onsubmit="return checkAdd();" name="add_memner_account" id="add_memner_accounts" action="<?php echo site_url('manage/member_account/add').'/'.$sign.'/'.$page;?>">
+        <form method="post" name="add_memner_account" id="add_memner_accounts" action="<?php echo site_url('manage/member_account/add').'/'.$sign.'/'.$page;?>">
             <table cellpadding="0" cellspacing="0">
                 <tr>
                     <td>姓名<span class="back_note red dn">必填</span></td>
-                    <td>QQ<span class="first_back_note red dn">必须填一项</span><span class="submit_back red"></span></td>
-                    <td>手机号码1<span class="first_back_note red dn">必须填一项</span><span class="submit_back red"></span></td>
-                    <td>微信<span class="first_back_note red dn">必须填一项</span><span class="submit_back red"></span></td>
+                    <td>QQ<span class="first_back_note red dn">必须填一项</span><span class="member_qq red"></span></td>
+                    <td>手机号码1<span class="first_back_note red dn">必须填一项</span><span class="member_phone red"></span></td>
+                    <td>微信<span class="first_back_note red dn">必须填一项</span><span class="member_weixin red"></span></td>
                     <td>状态<span class="back_note red dn">必填</span></td>
 					<td>来源<span class="back_note red dn">必填</span></td>
 					<td>渠道<span class="back_note red dn">必填</span></td>
-                    <td>描述<span class="back_note red dn">必填</span></span></td>
+                    <td>描述<span class="back_note red dn">必填</span><span class="msg red dn"></span></td>
                     <td class="mainbbn"></td>
                 </tr>
                 <tr>
@@ -148,7 +166,7 @@ function editBoxHide()
                         </select>
                     </td>
                     <td><input type="text" name="member_info" id="add_member_info" style="width:330px;" value="<?php echo set_value('member_info');?>" /></td>
-                    <td><input type="submit" id="add_member_account_submit" value="新增客户" /></td>
+                    <td><input type="submit" id="add_member_account_submit" value="新增客户" onclick="return checkAdd();" /></td>
                 </tr>
             </table>
         </form>

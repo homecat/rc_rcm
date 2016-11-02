@@ -7,8 +7,6 @@
 class  Member_account_model  extends  Member_base_model
 {
 
-    public $is_exists_num = array('qq'=>1000,'phone'=>1000,'weixin'=>1000);
-
 	public function __construct()
 	{
 		parent::__construct();
@@ -17,24 +15,23 @@ class  Member_account_model  extends  Member_base_model
 	}
 
     public function Is_exists($account){
-        $this->db->select( '*');
-        $this->db->from($this->table);
-        if($account['member_qq'] !=''){
-            $this->db->where('member_qq =', $account['member_qq']);
-            $this->db->or_where('member_qq2 =', $account['member_qq']);
+        $is_exists_num = array('qq'=>0,'phone'=>0,'weixin'=>0);//1000不存在，1100存在的
+        if($account['member_qq']!=''){
+            $query = $this->db->query("SELECT * FROM member_account WHERE member_qq = ". $account['member_qq']." OR member_qq2 = ".$account['member_qq']);
+            if($query->num_rows() > 0) $is_exists_num['member_qq'] = 1100;
+            else $is_exists_num['member_qq'] = 1000;
         }
-        if($account['member_phone'] !=''){
-            $this->db->where('member_phone =', $account['member_phone']);
-            $query = $this->db->or_where('member_phone2 =', $account['member_phone']);
-            $result = $this->db->get()->result_array();
-            if( count($result) > 0 ){
-                $this->is_exists_num['phone'] = 1100;
-                return true;
-            }
+        if($account['member_phone']!=''){
+            $query = $this->db->query("SELECT * FROM member_account WHERE member_phone = ". $account['member_phone']." OR member_phone2 = ".$account['member_phone']);
+            if($query->num_rows() > 0) $is_exists_num['member_phone'] = 1100;
+            else $is_exists_num['member_phone'] = 1000;
         }
-        if($account['member_weixin'] !=''){
-            $this->db->where('member_weixin =', $account['member_weixin']);
+        if($account['member_weixin']!=''){
+            $query = $this->db->query("SELECT * FROM member_account WHERE member_weixin =". $account['member_weixin']);
+            if($query->num_rows() > 0) $is_exists_num['member_weixin'] = 1100;
+            $is_exists_num['member_weixin'] = 1000;
         }
+        return $is_exists_num;
     }
 
   //通过用户QQ查询 负责人的id 通过负责人的id 查询负责团队pid

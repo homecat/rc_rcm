@@ -574,14 +574,8 @@ class Member_account extends MHT_Controller
         $account['sales_man']     = $user_id;
         $account['create_time']   = $now;
 
-        if($qq) echo 'QQ存在了';
-        else if($phone) echo 'phone存在了';
-        else if($weixin) echo 'weixin存在了';
-        else
-            save();
-
         $this->member_account_model->Is_exists($account);
-            if(is_exists($account)){
+/*            if(is_exists($account)){
                 $check_member_qq = 1100;//数据已存在
             }else{
                 $this->member_account_model->save(0, $account);
@@ -593,12 +587,16 @@ class Member_account extends MHT_Controller
                     $status['create_time'] = $now;
                     $this->member_status_model->save(0, $status );
                 }
-            }
+            }*/
        // }
         $data['sign']   = $sign;
         $data['page']   = $page;
         $data['limit']  = abs($limit);
         return redirect(site_url('manage/member_account/index/' . $page));
+    }
+
+    public function ajax(){
+        echo json_encode($this->member_account_model->Is_exists( $this->input->post(null, true)));
     }
     // 删除数据
     public function delete($page = 1, $id = 0)
