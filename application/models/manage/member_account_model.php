@@ -15,7 +15,7 @@ class  Member_account_model  extends  Member_base_model
 	}
 
     public function Is_exists($account){
-        $is_exists_num = array('qq'=>0,'phone'=>0,'weixin'=>0);//1000不存在，1100存在的
+        $is_exists_num = array('member_qq'=>0,'member_phone'=>0,'member_weixin'=>0);//1000不存在，1100存在的
         if($account['member_qq']!=''){
             $query = $this->db->query("SELECT * FROM member_account WHERE member_qq = ". $account['member_qq']." OR member_qq2 = ".$account['member_qq']);
             if($query->num_rows() > 0) $is_exists_num['member_qq'] = 1100;
@@ -32,6 +32,36 @@ class  Member_account_model  extends  Member_base_model
             $is_exists_num['member_weixin'] = 1000;
         }
         return $is_exists_num;
+    }
+
+    public function checkdata($params=array()){
+        $result='';
+        if($params){
+            $key=array_keys($params);
+            $this->db->select("member_status");
+            if(isset($key[1]) && $key[1] && $params[$key[1]]){
+                $this->db->where(array('member_id !='=>$params[$key[1]]));
+                if($key[0]=='member_qq' || $key[0]=='member_qq2'){
+                    $where="`member_qq`=".$params[$key[0]]." OR `member_qq2`=".$params[$key[0]];
+                    $this->db->where("($where)");
+                }elseif($key[0]=='member_phone' || $key[0]=='member_phone2'){
+                    $where="`member_phone`=".$params[$key[0]]." OR `member_phone2`=".$params[$key[0]];
+                    $this->db->where("($where)");
+                }
+            }else{
+                if($key[0]=='member_qq'){
+                    $this->db->where(array('member_qq'=>$params[$key[0]]));
+                    $this->db->or_where(array('member_qq2'=>$params[$key[0]]));
+                }else{
+                    $this->db->where(array('member_phone'=>$params[$key[0]]));
+                    $this->db->or_where(array('member_phone2'=>$params[$key[0]]));
+                }
+
+            }
+            $query=$this->db->get($this->table);
+            $result=$query->result_array();
+        }
+        return $result;
     }
 
   //通过用户QQ查询 负责人的id 通过负责人的id 查询负责团队pid

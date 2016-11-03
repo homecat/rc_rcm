@@ -574,21 +574,15 @@ class Member_account extends MHT_Controller
         $account['sales_man']     = $user_id;
         $account['create_time']   = $now;
 
-        $this->member_account_model->Is_exists($account);
-/*            if(is_exists($account)){
-                $check_member_qq = 1100;//数据已存在
-            }else{
-                $this->member_account_model->save(0, $account);
-                //存储状态
-                if(!empty($account['member_status'])){
-                    $status['member_status'] = $account['member_status'];
-                    $status['member_id'] = $this->db->insert_id();
-                    $status['creater'] = $user_id;
-                    $status['create_time'] = $now;
-                    $this->member_status_model->save(0, $status );
-                }
-            }*/
-       // }
+        $this->member_account_model->save(0, $account);
+        //存储状态
+        if(!empty($account['member_status'])){
+            $status['member_status'] = $account['member_status'];
+            $status['member_id'] = $this->db->insert_id();
+            $status['creater'] = $user_id;
+            $status['create_time'] = $now;
+            $this->member_status_model->save(0, $status );
+        }
         $data['sign']   = $sign;
         $data['page']   = $page;
         $data['limit']  = abs($limit);
@@ -596,7 +590,12 @@ class Member_account extends MHT_Controller
     }
 
     public function ajax(){
-        echo json_encode($this->member_account_model->Is_exists( $this->input->post(null, true)));
+        $tmp = array('flag'=>1);
+        $account = $this->member_account_model->Is_exists( $this->input->post(null, true));
+        foreach($account as $v){
+            if($v == 1100) $tmp['flag'] = 2; //添加状态
+        }
+        echo json_encode(array_merge($account,$tmp));
     }
     // 删除数据
     public function delete($page = 1, $id = 0)
@@ -625,6 +624,77 @@ class Member_account extends MHT_Controller
     	$this->form_validation->set_rules('demo_account','模拟账户','alpha_slash|max_length[32]');
     	$this->form_validation->set_rules('member_info','描述','required');
     	return $this->form_validation->run();
+    }
+
+    private function input_data($member_id = '')
+    {
+        //通用表单项
+        $account['member_name']   = trim($this->input->post('member_name', true));
+        $account['member_qq']     = trim($this->input->post('member_qq', true));
+        $account['member_phone']  = trim($this->input->post('member_phone', true));
+        $account['member_status'] = trim($this->input->post('member_status', true));
+        $account['member_from']   = trim($this->input->post('member_from', true));
+        $account['member_info']   = trim($this->input->post('member_info', true));
+        $account['channel']       = trim($this->input->post('channel', true));
+        $account['updater']       = trim($this->session->userdata['user_id']);
+        $account['update_time']   = trim(date('Y-m-d H:i:s'));
+        if(! $member_id)
+        {//添加功能-表单项
+            $account['creater'] = $this->session->userdata['user_id'];
+            $account['create_time'] = date('Y-m-d H:i:s');
+            //额外添加“负责人”、“负责团队”
+            $account['sales_id'] = $this->session->userdata['sales_id'];
+
+            $account['sales_man'] = $this->session->userdata['user_id'];
+        }else
+        {//修改功能-表单项
+            $account['member_habit'] = trim($this->input->post('member_habit', true));
+            $account['member_qq_addfriend'] = trim($this->input->post('member_qq_addfriend',TRUE));
+            if(! $account['member_qq_addfriend']) $account['member_qq_addfriend'] = 0;
+            $account['member_qq2'] = trim($this->input->post('member_qq2', true));
+            $account['member_qq2_addfriend'] = trim($this->input->post('member_qq2_addfriend',TRUE));
+            if(! $account['member_qq2_addfriend']) $account['member_qq2_addfriend'] = 0;
+            $account['member_weixin'] = trim($this->input->post('member_weixin',TRUE));
+            $account['expert_qq_invited'] = $this->input->post('expert_qq_invited',TRUE);
+            if(! $account['expert_qq_invited']) $account['expert_qq_invited'] = 0;
+            $account['expert_qq_added'] = $this->input->post('expert_qq_added',TRUE);
+            if(! $account['expert_qq_added']) $account['expert_qq_added'] = 0;
+            $account['member_weixin_addfriend'] = trim($this->input->post('member_weixin_addfriend',TRUE));
+            if(! $account['member_weixin_addfriend']) $account['member_weixin_addfriend'] = 0;
+            $account['member_phone2'] = trim($this->input->post('member_phone2',TRUE));
+            $account['demo_account'] = trim($this->input->post('demo_account', true));
+            $account['call_start_time'] = trim($this->input->post('call_start_time', true));
+            $account['wen_order_time'] = trim($this->input->post('wen_order_time', true));
+            $account['key_reser_time'] = trim($this->input->post('key_reser_time', true));
+            if($account['call_start_time'])
+            {
+                $account['call_start_time'] = date('Y-m-d H:i:s',strtotime($account['call_start_time']));
+            }else
+            {
+                $account['call_start_time'] = NULL;
+            }
+            if($account['wen_order_time'])
+            {
+                $account['wen_order_time'] = date('Y-m-d H:i:s',strtotime($account['wen_order_time']));
+            }else
+            {
+                $account['wen_order_time'] = NULL;
+            }
+            if($account['key_reser_time'] && $account['key_reser_time']==1){
+
+                $account['key_reser_time']='`';
+            }else{
+                $account['key_reser_time']=NULL;
+
+            }
+            //获取隐藏的修改时间值
+            //$account['update_follow_time'] = $this->input->post('update_time', true);
+            $account['is_upgrade'] = trim($this->input->post('is_upgrade', true));
+            $account['is_operation'] = trim($this->input->post('is_operation', true));
+            $account['re_MGM'] = trim($this->input->post('re_MGM', true));
+            $account['is_income'] = trim($this->input->post('is_income', true));
+        }
+        return $account;
     }
     
 

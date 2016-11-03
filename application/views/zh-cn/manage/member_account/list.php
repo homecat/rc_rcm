@@ -61,44 +61,48 @@ function resetForm()
 }
 function checkAdd()
 {
-	var add_member_name    = $('#add_member_name').val();
-	var add_member_qq      = $('#add_member_qq').val();
-	var add_member_phone   = $('#add_member_phone').val();
-	var add_member_weixin  = $('#add_member_weixin').val();
+    var add_member_name    = $('#add_member_name').val();
+    var add_member_qq      = $('#add_member_qq').val();
+    var add_member_phone   = $('#add_member_phone').val();
+    var add_member_weixin  = $('#add_member_weixin').val();
     var add_member_status  = $('#add_member_status').val();
     var add_member_from    = $('#add_member_from').val();
     var add_channel        = $('#add_channel').val();
     var add_member_info    = $('#add_member_info').val();
-
-	if(add_member_qq || add_member_phone || add_member_weixin){
+    if(add_member_qq || add_member_phone || add_member_weixin){
         $('.first_back_note').hide();
         if(!add_member_name || !add_member_status || !add_member_from || !add_channel || !add_member_info){
             $('.back_note').show();
             return false;
         }else{
+            $('.back_note').hide();
             $.ajax({
                 type:'post',
                 dataType:'json',
                 url: '<?php echo site_url('manage/member_account/ajax');?>',
-                data:'member_qq=' + add_member_qq + '&member_phone='+ add_member_phone + '&member_weixin=' + add_member_weixin,
+                data:'member_qq='+add_member_qq+'&member_phone='+add_member_phone+'&member_weixin='+add_member_weixin,
                 success:function(result) {
                     $.each(result,function(i, item){
+                        var flag = false;
                         if(item == 1100){
-                           $("."+i).html("已存在");
-                        }else{
-                            $("."+i).html('');
+                            $('.' + i).html(" 已存在");
+                            flag = false;
+                        }else if(item == 1000 || item == 0){
+                            $('.'+ i).empty();
+                        }else if(item == 1){
+                           $('#add_memner_accounts').submit();
                         }
                     })
-                 },
+                  },
                 error:function(){
-                    alert('line:90, access error');
+                    alert('Access error');
                 }
             });
             return false;
         }
-	}else{
+    }else{
         $('.submit_back').empty();
- //       $('#add_member_account_submit').attr('disabled','');
+        //$('#add_member_account_submit').attr('disabled','');
         $('.first_back_note').show();
         return false;
     }
