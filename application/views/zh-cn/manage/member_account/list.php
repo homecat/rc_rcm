@@ -83,13 +83,11 @@ function checkAdd()
                 data:'member_qq='+add_member_qq+'&member_phone='+add_member_phone+'&member_weixin='+add_member_weixin,
                 success:function(result) {
                     $.each(result,function(i, item){
-                        var flag = false;
-                        if(item == 1100){
+                           if(item == 1100){
                             $('.' + i).html(" 已存在");
-                            flag = false;
-                        }else if(item == 1000 || item == 0){
+                         }else if(item == 1000 || item == 0){
                             $('.'+ i).empty();
-                        }else if(item == 1){
+                        }else if(item == 'Enable'){
                            $('#add_memner_accounts').submit();
                         }
                     })

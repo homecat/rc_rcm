@@ -17,19 +17,19 @@ class  Member_account_model  extends  Member_base_model
     public function Is_exists($account){
         $is_exists_num = array('member_qq'=>0,'member_phone'=>0,'member_weixin'=>0);//1000不存在，1100存在的
         if($account['member_qq']!=''){
-            $query = $this->db->query("SELECT * FROM member_account WHERE member_qq = ". $account['member_qq']." OR member_qq2 = ".$account['member_qq']);
+            $query = $this->db->query("SELECT * FROM member_account WHERE member_status != 'Dead' AND member_qq = ". $account['member_qq']." OR member_qq2 = ".$account['member_qq']." AND member_status != 'Dead'");
             if($query->num_rows() > 0) $is_exists_num['member_qq'] = 1100;
             else $is_exists_num['member_qq'] = 1000;
         }
         if($account['member_phone']!=''){
-            $query = $this->db->query("SELECT * FROM member_account WHERE member_phone = ". $account['member_phone']." OR member_phone2 = ".$account['member_phone']);
+            $query = $this->db->query("SELECT * FROM member_account WHERE member_status != 'Dead' AND member_phone = ". $account['member_phone']." OR member_phone2 = ".$account['member_phone']);
             if($query->num_rows() > 0) $is_exists_num['member_phone'] = 1100;
             else $is_exists_num['member_phone'] = 1000;
         }
         if($account['member_weixin']!=''){
-            $query = $this->db->query("SELECT * FROM member_account WHERE member_weixin =". $account['member_weixin']);
+            $query = $this->db->query("SELECT * FROM member_account WHERE member_weixin =". $account['member_weixin']." AND member_status != 'Dead'");
             if($query->num_rows() > 0) $is_exists_num['member_weixin'] = 1100;
-            $is_exists_num['member_weixin'] = 1000;
+            else $is_exists_num['member_weixin'] = 1000;
         }
         return $is_exists_num;
     }
