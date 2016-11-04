@@ -35,38 +35,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="member_account.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/application/controllers/manage/member_account.php">
+      <file leaf-file-name="config.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/config/config.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="596" column="9" selection-start="26276" selection-end="26276" vertical-scroll-proportion="0.61383283" vertical-offset="10898" max-vertical-offset="14915">
+            <state line="6" column="1" selection-start="249" selection-end="249" vertical-scroll-proportion="-1.4526167" vertical-offset="1141" max-vertical-offset="6992">
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="list.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/views/zh-cn/manage/member_account/list.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="70" column="57" selection-start="2799" selection-end="2799" vertical-scroll-proportion="-1.4181818" vertical-offset="1252" max-vertical-offset="7448">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="member_account_model.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/models/manage/member_account_model.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="0" selection-start="277" selection-end="277" vertical-scroll-proportion="-7.607143" vertical-offset="72" max-vertical-offset="7467">
-              <folding>
-                <marker date="1478160599809" expanded="true" signature="499:550" placeholder="SELECT * FRO..memer_account..." />
-                <marker date="1478160599809" expanded="true" signature="499:550" placeholder="SELECT * FRO..memer_account..." />
-                <marker date="1478160599809" expanded="true" signature="499:550" placeholder="SELECT * FRO..memer_account..." />
-                <marker date="1478160599809" expanded="true" signature="499:589" placeholder="SELECT * FRO..memer_account..." />
-                <marker date="1478160599809" expanded="true" signature="499:648" placeholder="SELECT * FRO..memer_account..." />
-                <marker date="1478160599809" expanded="true" signature="499:592" placeholder="SELECT * FRO..memer_account..." />
-                <marker date="1478160599809" expanded="true" signature="499:550" placeholder="SELECT * FRO..memer_account..." />
-                <marker date="1478160599809" expanded="true" signature="499:545" placeholder="SELECT * FRO..memer_account..." />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -84,13 +57,14 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/application/config/database.php" />
         <option value="$PROJECT_DIR$/application/models/manage/member_account_entity.php" />
         <option value="$PROJECT_DIR$/application/models/manage/member_status_model.php" />
         <option value="$PROJECT_DIR$/application/config/config.php" />
         <option value="$PROJECT_DIR$/application/views/zh-cn/manage/member_account/list.php" />
         <option value="$PROJECT_DIR$/application/models/manage/member_account_model.php" />
         <option value="$PROJECT_DIR$/application/controllers/manage/member_account.php" />
+        <option value="$PROJECT_DIR$/application/controllers/manage/member_alldata.php" />
+        <option value="$PROJECT_DIR$/application/config/database.php" />
       </list>
     </option>
   </component>
@@ -162,54 +136,6 @@
               <option name="myItemId" value="application" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="zh-cn" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rc_rcm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rc_rcm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="zh-cn" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="manage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rc_rcm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rc_rcm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -226,6 +152,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rc_rcm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rc_rcm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -315,7 +259,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.12708601" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19191271" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19191271" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
@@ -426,11 +370,6 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/controllers/manage/member_alldata.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/controllers/manage/login.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
@@ -506,11 +445,6 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="769" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/config/database.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="1" selection-start="2451" selection-end="2451" vertical-scroll-proportion="0.29959515" vertical-offset="899" max-vertical-offset="2204" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="22" column="12" selection-start="549" selection-end="549" vertical-scroll-proportion="0.57417583" vertical-offset="0" max-vertical-offset="4142" />
@@ -581,13 +515,6 @@
         <state line="14" column="28" selection-start="249" selection-end="249" vertical-scroll-proportion="0.37623763" vertical-offset="0" max-vertical-offset="2090" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/config/config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="28" selection-start="473" selection-end="473" vertical-scroll-proportion="0.3479491" vertical-offset="1" max-vertical-offset="6992">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/views/zh-cn/manage/member_account/edit.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="92" selection-start="1515" selection-end="1515" vertical-scroll-proportion="0.4437781" vertical-offset="27" max-vertical-offset="2280">
@@ -623,32 +550,53 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/manage/member_account.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="585" column="32" selection-start="25874" selection-end="25874" vertical-scroll-proportion="0.31268013" vertical-offset="10898" max-vertical-offset="14915">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/application/views/zh-cn/manage/member_account/list.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="57" selection-start="2799" selection-end="2799" vertical-scroll-proportion="-1.4181818" vertical-offset="1252" max-vertical-offset="7448">
+        <state line="70" column="57" selection-start="2799" selection-end="2799" vertical-scroll-proportion="0.11694153" vertical-offset="1252" max-vertical-offset="7448">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/models/manage/member_account_model.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="277" selection-end="277" vertical-scroll-proportion="-7.607143" vertical-offset="72" max-vertical-offset="7467">
+        <state line="15" column="0" selection-start="277" selection-end="277" vertical-scroll-proportion="0.301273" vertical-offset="72" max-vertical-offset="7467">
           <folding>
-            <marker date="1478160599809" expanded="true" signature="499:550" placeholder="SELECT * FRO..memer_account..." />
-            <marker date="1478160599809" expanded="true" signature="499:550" placeholder="SELECT * FRO..memer_account..." />
-            <marker date="1478160599809" expanded="true" signature="499:550" placeholder="SELECT * FRO..memer_account..." />
-            <marker date="1478160599809" expanded="true" signature="499:589" placeholder="SELECT * FRO..memer_account..." />
-            <marker date="1478160599809" expanded="true" signature="499:648" placeholder="SELECT * FRO..memer_account..." />
-            <marker date="1478160599809" expanded="true" signature="499:592" placeholder="SELECT * FRO..memer_account..." />
-            <marker date="1478160599809" expanded="true" signature="499:550" placeholder="SELECT * FRO..memer_account..." />
-            <marker date="1478160599809" expanded="true" signature="499:545" placeholder="SELECT * FRO..memer_account..." />
+            <marker date="1478160599809" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..memer_account..." />
+            <marker date="1478160599809" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..memer_account..." />
+            <marker date="1478160599809" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..memer_account..." />
+            <marker date="1478160599809" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..memer_account..." />
+            <marker date="1478160599809" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..memer_account..." />
+            <marker date="1478160599809" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..memer_account..." />
+            <marker date="1478160599809" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..memer_account..." />
+            <marker date="1478160599809" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..memer_account..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/controllers/manage/member_account.php">
+    <entry file="file://$PROJECT_DIR$/application/controllers/manage/member_alldata.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="596" column="9" selection-start="26276" selection-end="26276" vertical-scroll-proportion="0.61383283" vertical-offset="10898" max-vertical-offset="14915">
+        <state line="33" column="42" selection-start="1054" selection-end="1054" vertical-scroll-proportion="0.24186705" vertical-offset="456" max-vertical-offset="1805">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/config/database.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="69" column="35" selection-start="2819" selection-end="2819" vertical-scroll-proportion="1.854314" vertical-offset="0" max-vertical-offset="1577">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/config/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="1" selection-start="249" selection-end="249" vertical-scroll-proportion="-1.4526167" vertical-offset="1141" max-vertical-offset="6992">
           <folding />
         </state>
       </provider>

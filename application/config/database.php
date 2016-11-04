@@ -56,39 +56,6 @@ if(HOST_DATABASE=='TEST')
 	$db['default']['database'] = 'work_rc_crm';
 	$db['default']['port']     = '3306';
 }
-else if(HOST_DATABASE=='UAT')
-{
-	$db['default']['hostname'] = 'localhost';
-	$db['default']['username'] = 'rc';
-	$db['default']['password'] = 'rc2012!';
-	$db['default']['database'] = 'work_uat_crm';
-	$db['default']['port']     = '3306';
-}
-else if(HOST_DATABASE=='WWW')
-{
-	$db['default']['hostname'] = 'localhost';
-	$db['default']['username'] = 'rc';
-	$db['default']['password'] = 'rc2012!';
-	$db['default']['database'] = 'work_rc_crm';
-	$db['default']['port']     = '3306';
-}
-else if(HOST_DATABASE=='FGL')
-{
-	$db['default']['hostname'] = 'localhost';
-	$db['default']['username'] = 'root';
-	$db['default']['password'] = 'WBweb2014!';
-	$db['default']['database'] = 'crm_fgl9999';
-	$db['default']['port']     = '3306';
-}
-else if(HOST_DATABASE=='FUDA')
-{
-	$db['default']['hostname'] = 'localhost';
-	$db['default']['username'] = 'root';
-	$db['default']['password'] = 'WBweb2014!';
-	$db['default']['database'] = 'crm_fuda668';
-	$db['default']['port']     = '3306';
-}
-
 
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';

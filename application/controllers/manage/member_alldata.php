@@ -32,6 +32,8 @@ class Member_alldata extends MHT_Controller
 	            $content = '<tr>';
 	            $content .= '<td>ID</td>';
 	            $content .= '<td>姓名</td>';
+	            $content .= '<td>手机-1</td>';
+	            $content .= '<td>手机-2</td>';
 				$content .= '<td>状态</td>';
 	            $content .= '<td>来源</td>';
 	            $content .= '<td>渠道</td>';
@@ -67,6 +69,8 @@ class Member_alldata extends MHT_Controller
 						$content .= '<tr>';
 						$content .= '<td>'.$item['member_id'].'</td>';
 		    			$content .= '<td>'.$item['member_name'].'</td>';
+		    			$content .= '<td>'.$item['member_phone'].'</td>';
+		    			$content .= '<td>'.$item['member_phone2'].'</td>';
 		    			$content .= '<td>'.$item['member_status'].'</td>';
 		    			$content .= '<td>'.$item['member_from'].'</td>';
 		    			$content .= '<td>'.$item['channel'].'</td>';
@@ -79,25 +83,8 @@ class Member_alldata extends MHT_Controller
 					createExcel($title,$content);
 					return;
 				}
-                {
-                    $content .= '<tr>';
-                    $content .= '<td>'.$item['member_id'].'</td>';
-                    $content .= '<td>'.$item['member_name'].'</td>';
-                    $content .= '<td>'.$item['member_status'].'</td>';
-                    $content .= '<td>'.$item['member_from'].'</td>';
-                    $content .= '<td>'.$item['channel'].'</td>';
-                    $content .= '<td>'.$this->user_list_model->get_usernamne($item['sales_man']).'</td>';
-                    $content .= '<td style="vnd.ms-excel.numberformat:yyyy-mm-dd hh:mm:ss">'.$item['create_time'].'</td>';
-                    $content .= '<td style="vnd.ms-excel.numberformat:yyyy-mm-dd hh:mm:ss">'.$item['update_time'].'</td>';
-                    $content .= '</tr>';
-                }
-                $this->load->helper('excel_helper');
-                createExcel($title,$content);
-                return;
-            }
-    }
-	        }
 
+            }
 			return $this->load->view('manage/member_export/index3',$data);
 	  }
 }
