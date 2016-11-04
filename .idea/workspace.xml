@@ -35,10 +35,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="member_account.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="member_account.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/controllers/manage/member_account.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="589" column="5" selection-start="26027" selection-end="26027" vertical-scroll-proportion="0.50287354" vertical-offset="10841" max-vertical-offset="14915">
+            <state line="587" column="38" selection-start="25946" selection-end="25946" vertical-scroll-proportion="-13.178572" vertical-offset="10784" max-vertical-offset="14953">
               <folding />
             </state>
           </provider>
@@ -47,17 +47,19 @@
       <file leaf-file-name="list.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/views/zh-cn/manage/member_account/list.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="97" column="15" selection-start="4000" selection-end="4000" vertical-scroll-proportion="-15.0" vertical-offset="1423" max-vertical-offset="7410">
+            <state line="88" column="57" selection-start="3701" selection-end="3701" vertical-scroll-proportion="-6.1272726" vertical-offset="1335" max-vertical-offset="7562">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="member_account_model.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="member_account_model.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/models/manage/member_account_model.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="5" selection-start="1569" selection-end="1569" vertical-scroll-proportion="-16.428572" vertical-offset="186" max-vertical-offset="7467">
-              <folding />
+            <state line="38" column="42" selection-start="1477" selection-end="1477" vertical-scroll-proportion="0.16292974" vertical-offset="613" max-vertical-offset="7980">
+              <folding>
+                <marker date="1478253485693" expanded="true" signature="2345:2383" placeholder="SELECT * FRO..user_list..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -80,8 +82,8 @@
         <option value="$PROJECT_DIR$/application/config/config.php" />
         <option value="$PROJECT_DIR$/application/controllers/manage/member_alldata.php" />
         <option value="$PROJECT_DIR$/application/config/database.php" />
-        <option value="$PROJECT_DIR$/application/models/manage/member_account_model.php" />
         <option value="$PROJECT_DIR$/application/views/zh-cn/manage/member_account/list.php" />
+        <option value="$PROJECT_DIR$/application/models/manage/member_account_model.php" />
         <option value="$PROJECT_DIR$/application/controllers/manage/member_account.php" />
       </list>
     </option>
@@ -579,24 +581,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/manage/member_account_model.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="5" selection-start="1569" selection-end="1569" vertical-scroll-proportion="-16.428572" vertical-offset="186" max-vertical-offset="7467">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/views/zh-cn/manage/member_account/list.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="97" column="15" selection-start="4000" selection-end="4000" vertical-scroll-proportion="-15.0" vertical-offset="1423" max-vertical-offset="7410">
+        <state line="88" column="57" selection-start="3701" selection-end="3701" vertical-scroll-proportion="-6.1272726" vertical-offset="1335" max-vertical-offset="7562">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/controllers/manage/member_account.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="589" column="5" selection-start="26027" selection-end="26027" vertical-scroll-proportion="0.50287354" vertical-offset="10841" max-vertical-offset="14915">
+        <state line="587" column="38" selection-start="25946" selection-end="25946" vertical-scroll-proportion="-13.178572" vertical-offset="10784" max-vertical-offset="14953">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/manage/member_account_model.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="42" selection-start="1477" selection-end="1477" vertical-scroll-proportion="0.16292974" vertical-offset="613" max-vertical-offset="7980">
+          <folding>
+            <marker date="1478253485693" expanded="true" signature="2345:2383" placeholder="SELECT * FRO..user_list..." />
+          </folding>
         </state>
       </provider>
     </entry>

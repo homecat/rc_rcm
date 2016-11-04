@@ -15,23 +15,50 @@ class  Member_account_model  extends  Member_base_model
 	}
 
     public function Is_exists($account){
-        $is_exists_num = array('member_qq'=>0,'member_phone'=>0,'member_weixin'=>0);//1000不存在，1100存在的
+        $is_exists_num = array('member_qq'=>0,'member_phone'=>0,'member_weixin'=>0,'add'=>'Enable');//1000不存在，1100存在的
         if($account['member_qq']!=''){
             $query = $this->db->query("SELECT * FROM member_account WHERE member_status != 'Dead' AND member_qq = ". $account['member_qq']." OR member_qq2 = ".$account['member_qq']." AND member_status != 'Dead'");
-            if($query->num_rows() > 0) $is_exists_num['member_qq'] = 1100;
-            else $is_exists_num['member_qq'] = 1000;
+            if($query->num_rows() > 0){
+                $is_exists_num['member_qq'] = 1100;
+                $is_exists_num['add'] = 'Disable';
+            }
+            else{
+                $is_exists_num['member_qq'] = 1000;
+            }
         }
         if($account['member_phone']!=''){
             $query = $this->db->query("SELECT * FROM member_account WHERE member_status != 'Dead' AND member_phone = ". $account['member_phone']." OR member_phone2 = ".$account['member_phone']);
-            if($query->num_rows() > 0) $is_exists_num['member_phone'] = 1100;
-            else $is_exists_num['member_phone'] = 1000;
+            if($query->num_rows() > 0){
+                $is_exists_num['member_phone'] = 1100;
+                $is_exists_num['add'] = 'Disable';
+            }
+            else{
+                $is_exists_num['member_phone'] = 1000;
+            }
         }
         if($account['member_weixin']!=''){
             $query = $this->db->query("SELECT * FROM member_account WHERE member_weixin =". $account['member_weixin']." AND member_status != 'Dead'");
-            if($query->num_rows() > 0) $is_exists_num['member_weixin'] = 1100;
-            else $is_exists_num['member_weixin'] = 1000;
+            if($query->num_rows() > 0) {
+                $is_exists_num['member_weixin'] = 1100;
+                $is_exists_num['add'] = 'Disable';
+            }
+            else {
+                $is_exists_num['member_weixin'] = 1000;
+
+            }
         }
-        return $is_exists_num;
+        if($is_exists_num['add'] == 'Disable') return array_merge($is_exists_num, $this->GetSalesInfo($query->result_array()));
+        else return $is_exists_num;
+    }
+
+    private function GetSalesInfo($result=array()){
+        $sales_id = ($result[0]['sales_id']);
+        $updated = ($result[0]['update_time']);
+        $created = ($result[0]['create_time']);
+        $real_account = ($result[0]['real_account']);
+        $query = $this->db->query("SELECT * FROM user_list WHERE user_id= ".$sales_id);
+        $res = $query->result_array();
+        return ['sales_info'=>[ 'name'=>$res[0]['user_name'],'updated'=>$updated,'created'=>$created,'real_account'=>$real_account]];
     }
 
     public function checkdata($params=array()){
@@ -91,7 +118,7 @@ class  Member_account_model  extends  Member_base_model
     }
 
     //通过用户手机查询 负责人的id 通过负责人的id 查询负责团队pid
-      public function check_phone_sales($member_phone, $member_id='', $isarr = false){
+      public function check_phone_sales($member_phone, $member_id=''){
         $this->db->select("a.member_phone as amember_phone,
         		 a.member_id     as amember_id,
         		 a.member_phone2 as amember_phone2,

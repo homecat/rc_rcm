@@ -82,10 +82,18 @@ function checkAdd()
                 url: '<?php echo site_url('manage/member_account/ajax');?>',
                 data:'member_qq='+add_member_qq+'&member_phone='+add_member_phone+'&member_weixin='+add_member_weixin,
                 success:function(result) {
+                    var sales = result.sales_info;
                     $.each(result,function(i, item){
-                           if(item == 1100){
+                        if(item == 1100){
                             $('.' + i).html(" 已存在");
-                         }else if(item == 1000 || item == 0){
+                            var sale = result.sales_info;
+                            var  msg = ' 负责人:'+sale.name;
+                            if(sale.real_account!=''&& sale.real_account!=null) msg+=' MT4:'+sale.real_account;
+                            if(sale.updated!=''&& sale.updated!=null) msg+=' 更新时间:'+sale.updated;
+                            //当只有创建时间无更新时间时，创建时间优先
+                            if(sale.created!=''&& sale.created!=null && sale.updated ==null)msg+=' 创建时间:'+sale.created;
+                            $('.member_info').html(msg);
+                        }else if(item == 1000 || item == 0){
                             $('.'+ i).empty();
                         }else if(item == 'Enable'){
                            $('#add_memner_accounts').submit();
@@ -135,7 +143,7 @@ function editBoxHide()
                     <td>状态<span class="back_note red dn">必填</span></td>
 					<td>来源<span class="back_note red dn">必填</span></td>
 					<td>渠道<span class="back_note red dn">必填</span></td>
-                    <td>描述<span class="back_note red dn">必填</span><span class="msg red dn"></span></td>
+                    <td>描述<span class="back_note red dn">必填</span><span class="member_info red"></span></td>
                     <td class="mainbbn"></td>
                 </tr>
                 <tr>

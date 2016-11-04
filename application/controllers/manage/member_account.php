@@ -590,12 +590,14 @@ class Member_account extends MHT_Controller
     }
 
     public function ajax(){
-        $tmp = array('add'=>'Enable');
+//        $tmp = array('add'=>'Enable');
         $account = $this->member_account_model->Is_exists( $this->input->post(null, true));
-        foreach($account as $v){
-            if($v == 1100) $tmp['add'] = 'Disable'; //save()状态
-        }
-        echo json_encode(array_merge($account,$tmp));
+//        foreach($account as $v){
+//            if($v == 1100) $tmp['add'] = 'Disable'; //save()状态
+//        }
+//        echo json_encode(array_merge($account,$tmp));
+
+        echo json_encode($account);
     }
     // 删除数据
     public function delete($page = 1, $id = 0)
