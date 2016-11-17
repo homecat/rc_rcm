@@ -1,6 +1,8 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+
 // 客户资料总览
+
 
 class  Member_account_model  extends  Member_base_model
 {
@@ -16,7 +18,7 @@ class  Member_account_model  extends  Member_base_model
         if($account){
             $is_exists_num = array('member_qq'=>0,'member_phone'=>0,'member_weixin'=>0,'add'=>'Enable');//1000不存在，1100存在的
             if($account['member_qq']!=''){
-                $query = $this->db->query("SELECT * FROM member_account WHERE member_status != 'Dead' AND member_qq = ". $account['member_qq']." OR member_qq2 = ".$account['member_qq']);
+                $query = $this->db->query("SELECT * FROM member_account WHERE member_status != 'Dead' AND member_qq = ". $account['member_qq']." OR member_qq2 = ".$account['member_qq']." AND member_status != 'Dead'");
                 if($query->num_rows() > 0){
                     $is_exists_num['member_qq'] = 1100;
                     $is_exists_num['add'] = 'Disable';
@@ -55,32 +57,46 @@ class  Member_account_model  extends  Member_base_model
     }
 
     private function GetSalesInfo( $result = array() ){
-        if(is_array($result)){
-            $sales_id = ($result[0]['sales_id']);
-            $updated = ($result[0]['update_time']);
-            $created = ($result[0]['create_time']);
-            $real_account = ($result[0]['real_account']);
-            $query = $this->db->query("SELECT * FROM user_list WHERE user_id= ".$sales_id);
-            $res = $query->result_array();
-            return array('sales_info'=>array('name'=>$res[0]['user_name'],'updated'=>$updated,'created'=>$created,'real_account'=>$real_account));
-        }else{
-            return false;
-        }
+        $sales_id = ($result[0]['sales_id']);
+        $updated = ($result[0]['update_time']);
+        $created = ($result[0]['create_time']);
+        $real_account = ($result[0]['real_account']);
+        $query = $this->db->query("SELECT * FROM user_list WHERE user_id= ".$sales_id);
+        $res = $query->result_array();
+        return ['sales_info'=>[ 'name'=>$res[0]['user_name'],'updated'=>$updated,'created'=>$created,'real_account'=>$real_account]];
     }
 
+    public function checkdata($params=array()){
+        $result='';
+        if($params){
+            $key=array_keys($params);
+            $this->db->select("member_status");
+            if(isset($key[1]) && $key[1] && $params[$key[1]]){
+                $this->db->where(array('member_id !='=>$params[$key[1]]));
+                if($key[0]=='member_qq' || $key[0]=='member_qq2'){
+                    $where="`member_qq`=".$params[$key[0]]." OR `member_qq2`=".$params[$key[0]];
+                    $this->db->where("($where)");
+                }elseif($key[0]=='member_phone' || $key[0]=='member_phone2'){
+                    $where="`member_phone`=".$params[$key[0]]." OR `member_phone2`=".$params[$key[0]];
+                    $this->db->where("($where)");
+                }
+            }else{
+                if($key[0]=='member_qq'){
+                    $this->db->where(array('member_qq'=>$params[$key[0]]));
+                    $this->db->or_where(array('member_qq2'=>$params[$key[0]]));
+                }else{
+                    $this->db->where(array('member_phone'=>$params[$key[0]]));
+                    $this->db->or_where(array('member_phone2'=>$params[$key[0]]));
+                }
 
-
-    //依据ID获取客户名
-    public function member_name($member_id='')
-    {
-        $query = $this->db->get_where($this->table,array('member_id'=>$member_id));
-        foreach ($query->result() as $row)
-        {
-            return $row->member_name;
+            }
+            $query=$this->db->get($this->table);
+            $result=$query->result_array();
         }
+        return $result;
     }
 
-  //通过用户QQ查询 负责人的id 通过负责人的id 查询负责团队pid 
+  //通过用户QQ查询 负责人的id 通过负责人的id 查询负责团队pid
     public function check_qq_sales($member_qq,$member_id=''){
         $this->db->select("a.member_qq as amember_qq,
         		 a.member_id as amember_id,
@@ -98,16 +114,16 @@ class  Member_account_model  extends  Member_base_model
         $this->db->join('member_sales as c','b.sales_id = c.sales_id','left');
         $this->db->where('a.member_id !=',$member_id);
     	$this->db->where('a.member_qq',$member_qq);
-   		$this->db->or_where('a.member_qq2',$member_qq);   	
+   		$this->db->or_where('a.member_qq2',$member_qq);
      	$list=$this->db->get()->result_array();
-     	
+
      	$this->session->set_userdata(array('is_list' => $list));
-     	
+
     	return $this->check_sales_id($list);
     }
-    
+
     //通过用户手机查询 负责人的id 通过负责人的id 查询负责团队pid
-      public function check_phone_sales($member_phone, $member_id='', $isarr = false){
+      public function check_phone_sales($member_phone, $member_id=''){
         $this->db->select("a.member_phone as amember_phone,
         		 a.member_id     as amember_id,
         		 a.member_phone2 as amember_phone2,
@@ -122,32 +138,32 @@ class  Member_account_model  extends  Member_base_model
         $this->db->join('user_list      as b', 'a.sales_man = b.user_id',  'left');
         $this->db->join('member_sales   as c', 'b.sales_id  = c.sales_id', 'left');
         $this->db->where('a.member_id !=',$member_id);
-        $this->db->where('a.member_phone',$member_phone);      	
+        $this->db->where('a.member_phone',$member_phone);
         $this->db->or_where('a.member_phone2',$member_phone);
     	$list=$this->db->get()->result_array();
     	return $this->check_sales_id($list);
     }
 
-    
+
     //遍历无限分类负责团队
     public function check_sales_id($list){
     	$num = '';
     	$hk='HK Sales';
     	foreach($list as $key=>$item){
-    		// 判断是否是终端	
+    		// 判断是否是终端
     		if( $item['csales_pid'] == 1 ){
     			if($item['csales_name'] == $hk){
     				$query =$this->db->get_where('member_sales',array('sales_name'=>$item['csales_name']));
-    				$num = $query->num_rows(); 
+    				$num = $query->num_rows();
     			}
     		}else{
      			$query =$this->db->get_where('member_sales',array('sales_id'=>$item['csales_pid'],'sales_name'=>$hk));
-    			$num = $query->num_rows(); 
+    			$num = $query->num_rows();
     		}
     	}
     	return $num;
     }
-    
+
 	public function get_lists($parmas=array(),$page=0,$limit=0){
 		if($page&&$limit){
 			$this->db->order_by('update_time','desc');
@@ -165,20 +181,18 @@ class  Member_account_model  extends  Member_base_model
 	{
 		$res=$this->db->update($this->table, $data, array('member_id' => $id));
 		return $res;
-	
-	}
-	public function get_member_status($params=array(),$edit='',$statua=array()){
 
-		if(is_array($params) && count($params)>0){
-			if($edit){//check member_status
-				$member_id=$params['member_id'];
-				unset($params['member_id']);
-			}
+	}
+	public function get_member_status( $params = array(), $edit = false, $statua = array()){
+
+		if(is_array($params) && count($params) > 0){
 			$result=$this->checkdata($params);
-			if(count($result)==0)return 2;//无数据通过来源不改变
+			if(count($result) == 0)return 2;//无数据通过来源不改变
 			if($edit)
 			{
-				if(count($result)==1){ 
+                $member_id=$params['member_id'];
+                unset($params['member_id']);
+				if(count($result)==1){
 					return 3;
 				}else{
 					$params['member_id']=$member_id;
@@ -191,51 +205,24 @@ class  Member_account_model  extends  Member_base_model
 						}
 					}else{
 						return $this->checkdead($result);
-					} 
+					}
 				}
-				
+
 			}else{
 				return $this->checkdead($result);
-			}		
-		}
-	
-	}
-	public function checkdata($params=array()){
-		$result='';
-		if($params){
-			$key=array_keys($params);
-			$this->db->select("member_status");
-			if(isset($key[1]) && $key[1] && $params[$key[1]]){
-				$this->db->where(array('member_id !='=>$params[$key[1]]));
-				if($key[0]=='member_qq' || $key[0]=='member_qq2'){
-					$where="`member_qq`=".$params[$key[0]]." OR `member_qq2`=".$params[$key[0]];
-					$this->db->where("($where)"); 
-				}elseif($key[0]=='member_phone' || $key[0]=='member_phone2'){
-					$where="`member_phone`=".$params[$key[0]]." OR `member_phone2`=".$params[$key[0]];
-					$this->db->where("($where)");
-				}
-			}else{
-				if($key[0]=='member_qq'){
-					$this->db->where(array('member_qq'=>$params[$key[0]])); 
-					$this->db->or_where(array('member_qq2'=>$params[$key[0]]));	
-				}else{
-					$this->db->where(array('member_phone'=>$params[$key[0]])); 
-					$this->db->or_where(array('member_phone2'=>$params[$key[0]]));
-				}
-			
 			}
-			$query=$this->db->get($this->table);
-			$result=$query->result_array();
 		}
-		return $result; 	
+
 	}
+
+
 	public function checkdead($result=array()){
 		if($result)
 		{
 			$not_dead=array();//开头不为dead
 			foreach($result as $k=>$v){
 				if($v['member_status']!='Dead' && $v['member_status']!='predead'){
-					array_unshift($not_dead,$v['member_status']);	
+					array_unshift($not_dead,$v['member_status']);
 				}else{
 					$not_dead[]=$v['member_status'];
 				}
@@ -244,90 +231,34 @@ class  Member_account_model  extends  Member_base_model
 				return 0;
 			}else{
 				if($not_dead[0]=='Dead'){
-					return 1;				
+					return 1;
 				}elseif($not_dead[0]=='predead'){
 					return 4;
 				}else{
 					return 0;
 				}
 			}
-		}	
-		
-	}
-	
-	//根据真实账户查找用户id；
-	public function userid($real_name='')
-	{
-		if(strpos($real_name,'R')===false){
-			$query = $this->db->get_where($this->table, array('real_account' => $real_name));
-		}else{
-			$query = $this->db->get_where($this->table, array('rc_real_account' => $real_name));
 		}
-		
-		$res=$query->row_array();
-		return $name=$res?$res['member_id']:0;
+
 	}
-    //依据客户名获取ID数组
-    public function member_ids($member_name=''){
-        $results = parent::get_list(array('member_name'=>$member_name));
-        $data = array('0');
-        if(!empty($results)){
-            foreach ($results as $result) {
-                $data[] = $result['member_id'];
-            }
-        }
-        return $data;
-    }
-/* 	public function checkAllMember($check=array())
-	{
-		$as = '';
-		foreach($check as $k=>$item)
-		{
-			$this->db->where($k,$item);
-			if($k == 'member_status') $as = $item;
-		}
-		if($as != 'Dead')$this->db->where('member_status !=' , 'Dead');
-		if($as != 'predead')$this->db->where('member_status !=' , 'predead');   
-		$this->db->from($this->table);
-		$this->db->limit(1);
-		$row = $this->db->get()->row_array();
-     	echo $this->db->last_query();
-		return $row;	
-	} */
+
 	public function checkAllMember($check=array()){
 		foreach($check as $k=>$item){
 			$this->db->where($k,$item);
-		} 
+		}
 		$this->db->where('member_status !=' , 'Dead');
-		$this->db->where('member_status !=' , 'predead');   
+		$this->db->where('member_status !=' , 'predead');
 		$this->db->from($this->table);
 		$this->db->limit(1);
 		$row = $this->db->get()->row_array();
 		return $row;
 	}
-	
-	
-/* 	public function checkAllMember($cheack=array(),$member_status=''){
-		
-	} */
-	//查询相同的qq号码或者手机号码
-	/*
-	*$v表示手机号码或者qq号码
-	*$k数据表字段
-	*/
-	public function g_check_rows($k=NULL,$v=NULL)
-	{
-		if(!$v)return;
-		$query = $this->db->get_where($this->table, array("$k" => $v));
-		$result=$query->result_array();
-		$nums=$result?count($result):0;
-		return $nums;
-	}
+
 	//保存临时改动
 	public function save_member($member_id=0,$data=array())
 	{
 		$this->db->update($this->table, $data, array('member_id' => $member_id));
-		return $this->db->affected_rows();	
+		return $this->db->affected_rows();
 	}
 	//检查用户信息恢复以前的旧数据
 	public function member_info($member_id=0)
@@ -339,7 +270,7 @@ class  Member_account_model  extends  Member_base_model
 		$data='';
 		if($result)
 		{
-			
+
 			if($result['member_json'])
 			{
 				$data=(array)json_decode($result['member_json']);
@@ -352,8 +283,6 @@ class  Member_account_model  extends  Member_base_model
 			}else{$res=0;}
 		}
 		return $res;
-		
-	
 	}
 
 	//更新最新信息
@@ -384,7 +313,6 @@ class  Member_account_model  extends  Member_base_model
 			$row=$query->row_array();
 			if($row)
 			{
-				$data='';
 				foreach($row as $v=>$k)
 				{
 				 $data[$v]=$k;
@@ -392,15 +320,14 @@ class  Member_account_model  extends  Member_base_model
 				 if($v=='update_time')$data[$v]=date('Y-m-d H:i:s');
 				}
 				$this->db->update($this->table, $data, array('member_id' => $member_id));
-				
 			}
 			$res=$this->db->affected_rows();
 		}else{$res=0;}
 		return $res;
 	}
-	
+
 	// 编辑输入验证
-	public function input_data($member_id = '')
+	public function input_data( $member_id = '')
 	{
 		//通用表单项
 		$account['member_name'] = trim($this->input->post('member_name', true));
@@ -421,25 +348,25 @@ class  Member_account_model  extends  Member_base_model
 		}else{
 			//修改功能-表单项
 			$account['member_qq_addfriend'] = trim($this->input->post('member_qq_addfriend',TRUE));
-	
+
 			if(! $account['member_qq_addfriend']) $account['member_qq_addfriend'] = '';
-	
+
 			$account['member_qq2'] = trim($this->input->post('member_qq2', true));
 			$account['member_qq2_addfriend'] = trim($this->input->post('member_qq2_addfriend',TRUE));
-	
+
 			if(! $account['member_qq2_addfriend']) $account['member_qq2_addfriend'] = '';
 			$account['expert_qq_invited'] = $this->input->post('expert_qq_invited',TRUE);
-	
+
 			if(! $account['expert_qq_invited']) $account['expert_qq_invited'] = '';
-	
+
 			$account['expert_qq_added'] = $this->input->post('expert_qq_added',TRUE);
-	
+
 			if(! $account['expert_qq_added']) $account['expert_qq_added'] = '';
-	
+
 			$account['member_weixin_addfriend'] = trim($this->input->post('member_weixin_addfriend',TRUE));
-	
+
 			if(! $account['member_weixin_addfriend']) $account['member_weixin_addfriend'] = NULL;
-				
+
 			$account['member_phone2'] = trim($this->input->post('member_phone2',TRUE));
 			$account['demo_account'] = trim($this->input->post('demo_account', true));
 			$account['call_start_time'] = trim($this->input->post('call_start_time', true));
@@ -461,20 +388,32 @@ class  Member_account_model  extends  Member_base_model
 				$account['key_reser_time']=NULL;
 			}
 		}
+        //获取隐藏的修改时间值
+        $account['is_upgrade'] = trim($this->input->post('is_upgrade', true));
+        $account['is_operation'] = trim($this->input->post('is_operation', true));
+        $account['re_MGM'] = trim($this->input->post('re_MGM', true));
+        $account['is_income'] = trim($this->input->post('is_income', true));
 		return $account;
 	}
-	
-	/***
-	 * jacky 2016-08-16
-	 */
-	public function By_qq_phone_Query( $condition ){
-    	$this->db->select('*');
-    	$this->db->from('member_account');
-    	$this->db->join('user_list', ' member_account.sales_man = user_list.user_id');
-		$this->db->where('member_phone =', $condition);
-		$this->db->or_where('member_phone2 =', $condition);
-		$this->db->or_where('member_qq =', $condition);
-		$this->db->or_where('member_qq2 =', $condition);
-		return $this->db->get()->result_array();
-	}
+
+    public function check_input()
+    {
+        $this->load->library('form_validation');
+        $this->form_validation->set_message('min_length', '格式错误');
+        $this->form_validation->set_message('max_length', '格式错误');
+        $this->form_validation->set_rules_new('member_name'  , 'required|max_length[32]');
+
+        $this->form_validation->set_rules_new('member_qq'    , 'min_length[5]|max_length[11]');
+        $this->form_validation->set_rules_new('member_phone' , 'min_length[11]|max_length[11]');
+        $this->form_validation->set_rules_new('member_weixin', 'required');
+
+        $this->form_validation->set_rules_new('member_from'  , 'required');
+        $this->form_validation->set_rules_new('channel'      , 'required');
+        $this->form_validation->set_rules_new('member_status', 'required|max_length[32]');
+        $this->form_validation->set_rules_new('member_info'  , 'required');
+        return $this->form_validation->run();
+    }
+
+
+
 }

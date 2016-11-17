@@ -12,14 +12,14 @@
 </style>
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/datePicker/WdatePicker.js"></script>
-<script type="text/javascript" src="<?php echo base_url()?>assets/js/check.js"></script>
 <script type="text/javascript">
 $(function(){ 
 	$('#edit_member_account').attr('src','');
 });
-function resetForm(){
+function resetForm()
+{
 	var date = new Date();
-    var now = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
+	var now = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
 	//重置功能：
 	//第一行
 	$('#member_name').val(''); 
@@ -59,14 +59,71 @@ function resetForm(){
 	$('#re_MGM').removeAttr('checked');
 	$('#is_income').removeAttr('checked');      
 }
+function checkAdd()
+{
+    var add_member_name    = $('#add_member_name').val();
+    var add_member_qq      = $('#add_member_qq').val();
+    var add_member_phone   = $('#add_member_phone').val();
+    var add_member_weixin  = $('#add_member_weixin').val();
+    var add_member_status  = $('#add_member_status').val();
+    var add_member_from    = $('#add_member_from').val();
+    var add_channel        = $('#add_channel').val();
+    var add_member_info    = $('#add_member_info').val();
+    if(add_member_qq || add_member_phone || add_member_weixin){
+        $('.first_back_note').hide();
+        if(!add_member_name || !add_member_status || !add_member_from || !add_channel || !add_member_info){
+            $('.back_note').show();
+            return false;
+        }else{
+            $('.back_note').hide();
+            $.ajax({
+                type:'post',
+                dataType:'json',
+                url: '<?php echo site_url('manage/member_account/ajax');?>',
+                data:'member_qq='+add_member_qq+'&member_phone='+add_member_phone+'&member_weixin='+add_member_weixin,
+                success:function(result) {
+                    var sales = result.sales_info;
+                    $.each(result,function(i, item){
+                        if(item == 1100){
+                            $('.' + i).html(" 已存在");
+                            var sale = result.sales_info;
+                            var  msg = ' 负责人:'+sale.name;
+                            if(sale.real_account!=''&& sale.real_account!=null) msg+=' MT4:'+sale.real_account;
+                            if(sale.updated!=''&& sale.updated!=null) msg+=' 更新时间:'+sale.updated;
+                            //当只有创建时间无更新时间时，创建时间优先
+                            if(sale.created!=''&& sale.created!=null && sale.updated ==null)msg+=' 创建时间:'+sale.created;
+                            $('.member_info').html(msg);
+                        }else if(item == 1000 || item == 0){
+                            $('.'+ i).empty();
+                        }else if(item == 'Enable'){
+                           $('#add_memner_accounts').submit();
+                        }
+                    })
+                  },
+                error:function(){
+                    alert('Access error');
+                }
+            });
+            return false;
+        }
+    }else{
+        $('.submit_back').empty();
+        //$('#add_member_account_submit').attr('disabled','');
+        $('.first_back_note').show();
+        return false;
+    }
+}
+
 var page = 1;
 var member_id = 0;
-function editBoxShow(page,member_id){
+function editBoxShow(page,member_id)
+{
 	$('.graybg').show();
 	$('#editBox').show();
 	$('#edit_member_account').attr('src',"<?php echo site_url('manage/member_account/edit');?>"+'/'+page+'/'+member_id);
 }
-function editBoxHide(){
+function editBoxHide()
+{
 	$('.graybg').hide();
 	$('#editBox').hide();
 }

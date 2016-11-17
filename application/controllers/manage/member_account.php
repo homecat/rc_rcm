@@ -260,310 +260,28 @@ class Member_account extends MHT_Controller
 		$data['row']['member_id'] = $member_id;
 		return $this->load->view('manage/member_account/follow_iframe_show', $data);
 	}
-    public function edit($page = 1 , $member_id = 0 , $save_boolean=false)
+
+    public function edit($page = 1 , $member_id = 0 , $save_boolean = false)
     {
-    	$row = $this->member_account_model->get_row(array('member_id' => $member_id));
-    	if (empty($row)) return redirect(site_url('manage/member_account/index/0/'.$page));
-    	//检查是否存在相同的真实账户
-    	//删除上次未保存的跟进记录
-    	if(! $save_boolean) $this->member_follow_model->del_temp_records($member_id);
-    	//检查当前账户是否有被编辑过，如果有则保存最新数据，如果没有则恢复原来的数据
-    	//if(!$save_boolean)$this->member_account_model->member_info($member_id);
-    	//取消背景状态
-    	if(! $save_boolean) $this->member_follow_model->del_notconfirm();
-    	//保存跟进记录
-    	$back1 = $this->member_follow_model->saveChangeFollowStatus($member_id);
-    	
-    	if($back1>0)
-    	{
-    		$this->member_account_model->updates($member_id);
-    	
-    	}
-    	$back3=0;
-    	$back4=0;
-    	$back5=0;
-    	$back6=0;
-    	$back7=0;
-    	$flag=false;
-    	$data['check_qq_phone'] = 1000;
-    	 
-    	$post=$this->input->post();
-    	//如果有客户内容权限
-    	if($post['khzi'])
-    	{
-    	
-    		$row = $this->member_account_model->get_row(array('member_id' => $member_id));
-    	
-    		if (empty($row)) return redirect(site_url('manage/member_account/index/0/'.$page));
-    		$data['row']=$row;
-    		//验证手机电话
-    		$member_qq = $this->input->post('member_qq', TRUE);
-    		$member_phone = $this->input->post('member_phone', TRUE);
-    		$member_qq2 = $this->input->post('member_qq2', TRUE);
-    		$member_phone2 = $this->input->post('member_phone2', TRUE);
-    		$load_lxfsqq=$this->input->post('load_lxfsqq', true);
-    		$load_lxfsph=$this->input->post('load_lxfsph', true);
-    		$member_status=$this->input->post('member_status', TRUE);
-    		$member_status1=$this->input->post('member_status1', TRUE);
-    		$member_status_array=array('member_status'=>$member_status,'member_status1'=>$member_status1);
-    		$load_lxfsqq2=$this->input->post('load_lxfsqq2', true);
-    		$load_lxfsph2=$this->input->post('load_lxfsph2', true);
-    		$member_from=$this->input->post('member_from', true);
-    		$channel = $this->input->post('channel',true);
-    		$data['check_from_channel'] = 1000;
-    		if(empty($channel)&& empty($member_from)){
-    			$data['check_from_channel'] = 1100;
-    		}
-    		if(! $member_qq && ! $member_phone){
-    			$data['check_qq_phone'] = 1200;
-    		} else {
-					//判断验证qq和负责团
-	    			if (!$this->check_member_qq($member_id))  
-	    			{    
-    				    if($row['member_qq'] != $member_qq || $row['member_status'] != $member_status){
-    						$check_qq_sales = $this->member_account_model->check_qq_sales($member_qq,$member_id);
-    						if($check_qq_sales >= 1){
-    							$data['check_qq_phone'] = 1340;
-    						}else{
-    							$data['check_qq_phone'] = 1300;
-    						}
-    					}elseif($row['member_qq2'] != $member_qq2 || $row['member_status'] != $member_status){
-    						$check_qq2_sales = $this->member_account_model->check_qq_sales($member_qq2,$member_id);
-    						if($check_qq2_sales >=1){
-    							$data['check_qq_phone'] = 1340;
-    						}else{
-    							$data['check_qq_phone'] = 1300;
-    						}
-    					}
-	    			}else{
-	    				//手机号码验证和负责团队
-	    				if (!$this->check_member_phone($member_id))
-	    				{
-	    					if($row['member_phone'] != $member_phone || $row['member_status'] != $member_status){
-	    						$check_phone_sales = $this->member_account_model->check_phone_sales($member_phone,$member_id);
-	    						if($check_phone_sales >=1){
-	    							$data['check_qq_phone'] = 1360;
-	    						}else{
-	    							$data['check_qq_phone'] = 1320;
-	    						}
-	    					}elseif($row['member_phone2'] != $member_phone2 || $row['member_status'] != $member_status){
-	    						$check_phone_sales = $this->member_account_model->check_phone_sales($member_phone2,$member_id);
-	    						if($check_phone_sales >=1){
-	    							$data['check_qq_phone'] = 1360;
-	    						}else{
-	    							$data['check_qq_phone'] = 1320;
-	    						}
-	    					}
-	    				}
-	    			}
-	    			//验证qq
-	    			$qq_status=0;
-	    			$qq_status1=0;
-	    			if($member_qq){
-	    				$qq_status=$this->member_account_model->get_member_status(
-	    						array('member_qq'=>$member_qq,
-	    								'member_id'=>$member_id),
-	    						true,
-	    						$member_status_array);
-	    				$qq_status1=$qq_status;
-	    				if(!$qq_status){
-	    					$data['check_qq_phone'] = 1300;
-	    				}
-	    			}
-	    			//验证qq1
-	    			$qq_status2=0;
-	    			if($member_qq2){
-	    				if($data['check_qq_phone']==1000){
-	    					$qq_status=$this->member_account_model->get_member_status(
-	    							array('member_qq2'=>$member_qq2,
-	    									'member_id'=>$member_id),
-	    							true,
-	    							$member_status_array);
-	    					$qq_status2=$qq_status;
-	    					if(!$qq_status)$data['check_qq_phone'] = 1310;
-	    	
-	    				}
-	    			}
-	    			//验证电话1
-	    			$qq_status3=0;
-	    			if($member_phone){
-	    				if($data['check_qq_phone']==1000){
-	    					$qq_status=$this->member_account_model->get_member_status(
-	    							array('member_phone'=>$member_phone,
-	    									'member_id'=>$member_id),
-	    							true,
-	    							$member_status_array);
-	    					$qq_status3=$qq_status;
-	    					if(!$qq_status)$data['check_qq_phone'] = 1320;
-	    				}
-	    			}
-	    			//验证电话2
-	    			$qq_status4=0;
-	    			if($member_phone2){
-	    				if($data['check_qq_phone']==1000){
-	    					$qq_status=$this->member_account_model->get_member_status(
-	    							array('member_phone2'=>$member_phone2,'member_id'=>$member_id),
-	    							true,
-	    							$member_status_array);
-	    					$qq_status4=$qq_status;
-	    					if(!$qq_status)$data['check_qq_phone'] = 1330;
-	    				}
-	    			}
-	    			if($qq_status1==1||$qq_status2==1||$qq_status3==1||$qq_status4==1){
-	    				$qq_status=1;
-	    			}
-	    		
-	    	}
-    	
-    		$post1 = $this->input_data($member_id);
-    		if ($this->check_edit_input($member_id))
-    		{
-    				
-    			if($data['check_qq_phone']==1000 && $data['check_from_channel']==1000)
-    			{
-    				if($row['member_status'] != $post['member_status'])
-    				{
-    					$status['member_id'] = $member_id;
-    					$status['member_status'] = $post['member_status'];
-    					$status['creater'] = $this->session->userdata['user_id'];
-    					$status['create_time'] = date('Y-m-d H:i:s');
-    					$res1=$this->member_status_model->save(0,$status);
-    	
-    					if($res1>0){$back4=$res1;}else{$data['check_qq_phone'] = 1800;}
-    				}
-    				if(	$row['member_name']==$post1['member_name']
-    				&& $row['member_qq']==$post1['member_qq']
-    				&& $row['member_qq2']==$post1['member_qq2']
-    				&& $row['member_qq_addfriend']==$post1['member_qq_addfriend']
-    				&& $row['member_qq2_addfriend']==$post1['member_qq2_addfriend']
-    				&& $row['expert_qq_invited']==$post1['expert_qq_invited']
-    				&& $row['expert_qq_added']==$post1['expert_qq_added']
-    				&& $row['member_phone']==$post1['member_phone']
-    				&& $row['member_phone2']==$post1['member_phone2']
-    				&& $row['member_weixin']==$post1['member_weixin']
-    				&& $row['member_weixin_addfriend']==$post1['member_weixin_addfriend']
-    				&& $row['member_status']==$post1['member_status']
-    				&& $row['member_from']==$post1['member_from']
-    				&& $row['channel']==$post1['channel']
-    				&& $row['demo_account']==$post1['demo_account']
-    				&& $row['call_start_time']==$post1['call_start_time']
-    				&& $row['wen_order_time']==$post1['wen_order_time']
-    				&& $row['member_info']==$post1['member_info']
-    				&& $row['member_habit']==$post1['member_habit']
-    				&& $row['is_upgrade']==$post1['is_upgrade']
-    				&& $row['is_operation']==$post1['is_operation']
-    				&& $row['re_MGM']==$post1['re_MGM']
-    				&& $row['is_income']==$post1['is_income']
-    				)
-    				{
-    					if($row['key_reser_time']!=$post1['key_reser_time'])
-    					{
-    						$row['key_reser_time']=$post1['key_reser_time'];
-    						$row['update_time']=date('Y-m-d H:i:s');
-    						$back7=$this->member_account_model->save_member($row['member_id'],$row);
-    					}
-    					$data['check_qq_phone'] = 1500;
-    				}else
-    				{
-    					$rowjson=json_encode($row);
-    					if($post1)
-    					{
-    						foreach($post1 as $v=>$k)
-    						{
-    							$row[$v]=$k;
-    							$row['update_time']=date('Y-m-d H:i:s');
-    	
-    						}
-    						if($qq_status==4){$row['member_from']='predead-RE';}
-    						if($qq_status==1){$row['member_from']='Deadlead-RE';}
-    						$back6=$this->member_account_model->save_member($row['member_id'],$row);
-    						if($back6==0)
-    						{
-    							$data['check_qq_phone'] = 1800;
-    	
-    						}
-    	
-    					}//enif$post
-    				}//endelse
-    	
-    			}//end$data['check_qq_phone']==1000
-    		}//end验证
-    			
-    	}//end客户内容处理
-    		
-    	//确认背景//分析师记录
-    	if($post['flag_habit_bg'])
-    	{
-    		$ids=$post['flag_habit_bg'];
-    		$ids=explode(',',$ids);
-    		foreach($ids as $id)
-    		{//获得有背景的信息的个数
-    			$numss=$this->member_follow_model->getnums();
-    			if(in_array($id,$numss,true))continue;
-    			$res=$this->member_follow_model->update_recode_bg($id);
-    			if($res>0){$back3+=$res;}else{$data['check_qq_phone'] = 1800;}
-    		}
-    	}
-    		
-    	//交易习惯
-    	if($post['flag_habit']==1)
-    	{
-    		//print_r($post);
-    		if(!$post['expert_qq_invited'])$post['expert_qq_invited']=0;
-    		if(!$post['expert_qq_added'])$post['expert_qq_added']=0;
-    		$row = $this->member_account_model->get_row(array('member_id' => $member_id));
-    		if($row)
-    		{
-    			if(
-    			$row['expert_qq_invited']==$post['expert_qq_invited']&&
-    			$row['expert_qq_added']==$post['expert_qq_added']&&
-    			$row['member_tradehabit']==$post['member_tradehabit']
-    			)
-    			{
-    				$data['check_qq_phone']=1500;
-    			}else
-    			{
-    				$array='';
-    				$array['expert_qq_invited']=$post['expert_qq_invited'];
-    				$array['expert_qq_added']=$post['expert_qq_added'];
-    				$array['member_tradehabit']=$post['member_tradehabit'];
-    				$array['updater']=$this->session->userdata['user_id'];
-    				$array['update_time']=date("Y-m-d H:i:s");
-    				//保存更新的用户信息
-    				$back5 = $this->member_account_model->save_new_info2($member_id,$array);
-    				//if($back5>0)
-    				if($back5==0)$data['check_qq_phone'] = 1800;
-    			}
-    		}
-    	
-    			
-    	}
-    	//echo $flag;die;
-    	if($flag==false)
-    	{
-    		if($back1>0 || $back3>0 || $back4>0 || $back5>0 || $back6>0 || $back7>0)
-    		{
-    			$data['code'] = 9999;
-    			$data['new_url'] = site_url('manage/member_account/index').'/1/'.$page;
-    			return $this->load->view('manage/member_account/note',$data);
-    		}
-    	}
-    	if($post)
-    	{
-    		if(!$post['khzi'])
-    		{
-    			if($post['update_time']==9999 && !$post['check_qq_phone'])
-    			{
-    				$data['check_qq_phone']=1500;
-    			}
-    		}
-    	}
-    	
-    	$data['row'] = $row;
-    	$data['page'] = $page;
-    	return $this->load->view('manage/member_account/edit', $data);
+        $row = $this->member_account_model->get_row(array('member_id' => $member_id));
+        $post = $this->input->post(null,true);
+
+        if($post){
+            print_r($post);exit();
+            $status['member_id'] = $member_id;
+            $status['member_status'] = $post['member_status'];
+            $status['creater'] = $this->session->userdata['user_id'];
+            $status['create_time'] = date('Y-m-d H:i:s');
+            $this->member_status_model->save(0,$status); // save status
+        }
+
+
+
+        $data['row'] = $row;
+        $data['page'] = $page;
+        return $this->load->view('manage/member_account/edit', $data);
     }
-    
+
     public function add($sign = 0, $page = 1, $limit = 20)
     {
         $now = date('Y-m-d H:i:s');
@@ -590,15 +308,25 @@ class Member_account extends MHT_Controller
     }
 
     public function ajax(){
-//        $tmp = array('add'=>'Enable');
-        $account = $this->member_account_model->Is_exists( $this->input->post(null, true));
-//        foreach($account as $v){
-//            if($v == 1100) $tmp['add'] = 'Disable'; //save()状态
-//        }
-//        echo json_encode(array_merge($account,$tmp));
+        $this->load->model('manage/member_account_check_model');
+        $account = $this->member_account_check_model->get_all();
+        $post = $this->input->post(null, true);
+        foreach($post as $key => $val){
+            $msg = '';
+            $tmp = $val;
+            if($tmp){
+                for($i=0; $i<count($account); $i++){
+                    if($account[$i][$key] == $tmp && $account[$i]['member_status'] != 'Dead'){
+                        $msg = '已存在';
+                    }
+                }
+            }
 
-        echo json_encode($account);
+            $arr[$key] = $msg;
+        }
+        echo json_encode($arr);
     }
+
     // 删除数据
     public function delete($page = 1, $id = 0)
     {

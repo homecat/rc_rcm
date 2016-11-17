@@ -47,28 +47,7 @@ $(function(){
                     	<iframe width="100%" height="100%" id="edit_member_follow" name="edit_member_follow" frameborder="0" scrolling="no" src="<?php echo site_url('manage/authority/follow_iframe').'/'.$row['member_id'];?>"></iframe>
                     </td>
                 </tr>
-                <tr>
-                	<td colspan="2" align="center" height="18" class="mainbr">*提示信息: 
-                    	<span class="red">
-                    	<?php 
-							if(isset($check_qq_phone) && $check_qq_phone>1000 ){
-							if($check_qq_phone==1200) echo "QQ和手机号码必填一项";
-						  	if($check_qq_phone==1300) echo "该QQ已经存在&nbsp;&nbsp;&nbsp;已有广州销售跟进";
-							if($check_qq_phone==1320) echo "该手机号码已经存在&nbsp;&nbsp;&nbsp;已有广州销售跟进";
-							if($check_qq_phone==1340) echo "该QQ已经存在&nbsp;&nbsp;&nbsp;已有香港销售跟进";
-						   	if($check_qq_phone==1360) echo "该手机号码已经存在&nbsp;&nbsp;&nbsp;已有香港销售跟进";
-							if($check_qq_phone==1500) echo "没有改动需要提交";
-							if($check_qq_phone==1800) echo "提交失败";
-							if($check_qq_phone==1100) echo "手机号码存在多个请删除后再做修改";
-							if($check_qq_phone==1700) echo "QQ号码存在多个请删除后再做修改";
-							if($check_qq_phone==2000) echo "修改提交成功！";
-							}else{
-								 echo validation_errors();
-							}
-						?>
-						</span>
-                    </td>
-                </tr>
+                <tr><td colspan="2" align="center" height="18" class="mainbr">*提示信息:</td></tr>
                 <tr>
                     <td align="center" class="mainbr" style="padding:0;"><input class="option_button" id="option_button" type="submit" value="保存" />
                     <input type="hidden" id="update_time" name="update_time" value="" />
@@ -76,11 +55,9 @@ $(function(){
                     <input type="hidden" id="expert_qq_invited" name="expert_qq_invited" value="" />
                     <input type="hidden" id="expert_qq_added" name="expert_qq_added" value="" />
                     <input type="hidden" id="member_tradehabit" name="member_tradehabit" value="" />
-                    
                     <input type="hidden" id="flag_habit" name="flag_habit" value="" />
                     <input type="hidden" id="flag_habit_bg" name="flag_habit_bg" value="" />
                     <input type="hidden" id="khzi" name="khzi" value="" />
-                    
                     <input type="hidden" id="member_name" name="member_name" value="" />
                     <input type="hidden" id="member_qq2" name="member_qq2" value="" />
                     <input type="hidden" id="member_qq" name="member_qq" value="" />
@@ -103,9 +80,7 @@ $(function(){
                     <input type="hidden" id="re_MGM" name="re_MGM" value="" />
                     <input type="hidden" id="is_income" name="is_income" value="" />
                     </td>
-                    <td align="center" class="mainbr" style="padding:0;">
-                    	<input class="option_button" type="button" onclick="window.parent.editBoxHide();" value="取消" />
-                    </td>
+                    <td align="center" class="mainbr" style="padding:0;"><input class="option_button" type="button" onclick="window.parent.editBoxHide();" value="取消" /></td>
                 </tr>
             </table>
         </form>
