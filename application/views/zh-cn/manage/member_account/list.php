@@ -79,21 +79,21 @@ function editBoxHide(){
         <form method="post" name="add_memner_account" id="add_memner_accounts" action="<?php echo site_url('manage/member_account/add').'/'.$sign.'/'.$page;?>">
             <table cellpadding="0" cellspacing="0">
                 <tr>
-                    <td>姓名<span class="back_note red dn">必填</span></td>
-                    <td>QQ<span class="first_back_note red dn">必须填一项</span><span class="member_qq red"></span></td>
-                    <td>手机号码1<span class="first_back_note red dn">必须填一项</span><span class="member_phone red"></span></td>
-                    <td>微信<span class="first_back_note red dn">必须填一项</span><span class="member_weixin red"></span></td>
-                    <td>状态<span class="back_note red dn">必填</span></td>
-					<td>来源<span class="back_note red dn">必填</span></td>
-					<td>渠道<span class="back_note red dn">必填</span></td>
-                    <td>描述<span class="back_note red dn">必填</span><span class="member_info red"></span></td>
+                    <td>姓名<span class="member_name  red"></span></td>
+                    <td>QQ<span class="member_qq red"></span></td>
+                    <td>手机号码1<span class="member_phone  red"></span></td>
+                    <td>微信<span class="member_weixin  red"></span></td>
+                    <td>状态<span class="member_status  red"></span></td>
+					<td>来源<span class="member_from  red"></span></td>
+					<td>渠道<span class="channel  red"></span></td>
+                    <td>描述<span class="member_info  red"></span><span class="msg  red"></span></td>
                     <td class="mainbbn"></td>
                 </tr>
                 <tr>
-                    <td><input type="text" name="member_name" id="add_member_name" value="<?php echo set_value('member_name');?>" /></td>
-                    <td><input type="text" name="member_qq" id="add_member_qq" value="<?php echo set_value('member_qq');?>" /></td>
-                    <td><input type="text" name="member_phone" id="add_member_phone" value="<?php echo set_value('member_phone');?>" /></td>
-                    <td><input type="text" name="member_weixin" id="add_member_weixin" value="<?php echo set_value('member_weixin');?>" /></td>
+                    <td><input type="text" name="member_name" id="add_member_name" value="Jacky" /></td>
+                    <td><input type="text" name="member_qq" id="add_member_qq" value="61222575" /></td>
+                    <td><input type="text" name="member_phone" id="add_member_phone" value="13800138000" /></td>
+                    <td><input type="text" name="member_weixin" id="add_member_weixin" value="61222575" /></td>
                     <td><?php $status = $this->member_params_model->get_parm_options('状态');?>
                         <select name="member_status" id="add_member_status">
                                 <option value="">请选择</option>
@@ -118,8 +118,8 @@ function editBoxHide(){
                             <?php endforeach;?>
                         </select>
                     </td>
-                    <td><input type="text" name="member_info" id="add_member_info" style="width:330px;" value="<?php echo set_value('member_info');?>" /></td>
-                    <td><input type="submit" id="add_member_account_submit" value="新增客户" onclick="return checkAdd();" /></td>
+                    <td><input type="text" name="member_info" id="add_member_info" style="width:330px;" value="abc info" /></td>
+                    <td><input type="submit" id="add_member_account_submit" value="新增客户" onclick="return check();" /></td>
                 </tr>
             </table>
         </form>

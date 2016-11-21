@@ -37,10 +37,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="member_account.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="member_account.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/controllers/manage/member_account.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="321" column="17" selection-start="16342" selection-end="16342" vertical-scroll-proportion="0.67241377" vertical-offset="5631" max-vertical-offset="9785">
+            <state line="315" column="21" selection-start="16087" selection-end="16087" vertical-scroll-proportion="-9.25" vertical-offset="5726" max-vertical-offset="9804">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="list.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/views/zh-cn/manage/member_account/list.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="90" column="21" selection-start="3690" selection-end="3690" vertical-scroll-proportion="0.40948275" vertical-offset="1425" max-vertical-offset="6479">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="check.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/js/check.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="26" column="30" selection-start="728" selection-end="728" vertical-scroll-proportion="0.0" vertical-offset="171" max-vertical-offset="2375">
               <folding />
             </state>
           </provider>
@@ -49,7 +67,7 @@
       <file leaf-file-name="Member_account_check_model.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/models/manage/Member_account_check_model.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="100" column="5" selection-start="4287" selection-end="4287" vertical-scroll-proportion="-14.678572" vertical-offset="1489" max-vertical-offset="2185">
+            <state line="85" column="17" selection-start="3719" selection-end="3719" vertical-scroll-proportion="0.0" vertical-offset="1615" max-vertical-offset="2185">
               <folding />
             </state>
           </provider>
@@ -75,10 +93,11 @@
         <option value="$PROJECT_DIR$/application/config/database.php" />
         <option value="$PROJECT_DIR$/application/models/manage/member_account_model_local.php" />
         <option value="$PROJECT_DIR$/application/views/zh-cn/manage/member_account/edit.php" />
-        <option value="$PROJECT_DIR$/application/views/zh-cn/manage/member_account/list.php" />
         <option value="$PROJECT_DIR$/application/models/manage/member_account_model.php" />
         <option value="$PROJECT_DIR$/application/models/manage/Member_account_check_model.php" />
         <option value="$PROJECT_DIR$/application/controllers/manage/member_account.php" />
+        <option value="$PROJECT_DIR$/assets/js/check.js" />
+        <option value="$PROJECT_DIR$/application/views/zh-cn/manage/member_account/list.php" />
       </list>
     </option>
   </component>
@@ -147,15 +166,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="zh-cn" />
+              <option name="myItemId" value="assets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -169,49 +180,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
+              <option name="myItemId" value="assets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="zh-cn" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="manage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rc_rcm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rc_rcm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="zh-cn" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="manage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="member_account" />
+              <option name="myItemId" value="js" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -315,7 +288,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17971759" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11745828" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24326059" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
@@ -373,11 +346,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/application/views/zh-cn/manage/member_account/list.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="99" column="20" selection-start="3375" selection-end="3375" vertical-scroll-proportion="0.0" vertical-offset="1649" max-vertical-offset="6802" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/models/manage/member_account_model.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="369" column="78" selection-start="11770" selection-end="11770" vertical-scroll-proportion="0.0" vertical-offset="6874" max-vertical-offset="7619" />
@@ -610,28 +578,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/models/manage/member_account_model.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="480" column="0" selection-start="15671" selection-end="15671" vertical-scroll-proportion="0.8362069" vertical-offset="8538" max-vertical-offset="9234">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/zh-cn/manage/member_account/list.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="54" selection-start="2275" selection-end="2275" vertical-scroll-proportion="0.21839081" vertical-offset="912" max-vertical-offset="6479">
-          <folding />
-        </state>
+        <state line="480" column="0" selection-start="15671" selection-end="15671" vertical-scroll-proportion="0.8362069" vertical-offset="8538" max-vertical-offset="9234" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/models/manage/Member_account_check_model.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="100" column="5" selection-start="4287" selection-end="4287" vertical-scroll-proportion="-14.678572" vertical-offset="1489" max-vertical-offset="2185">
+        <state line="85" column="17" selection-start="3719" selection-end="3719" vertical-scroll-proportion="0.0" vertical-offset="1489" max-vertical-offset="2185">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/controllers/manage/member_account.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="321" column="17" selection-start="16342" selection-end="16342" vertical-scroll-proportion="0.67241377" vertical-offset="5631" max-vertical-offset="9785">
+        <state line="315" column="21" selection-start="16087" selection-end="16087" vertical-scroll-proportion="-9.25" vertical-offset="5726" max-vertical-offset="9804">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/check.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="30" selection-start="728" selection-end="728" vertical-scroll-proportion="0.0" vertical-offset="171" max-vertical-offset="2375">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/zh-cn/manage/member_account/list.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="90" column="21" selection-start="3690" selection-end="3690" vertical-scroll-proportion="0.40948275" vertical-offset="1425" max-vertical-offset="6479">
           <folding />
         </state>
       </provider>

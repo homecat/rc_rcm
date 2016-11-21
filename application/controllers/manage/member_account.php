@@ -311,17 +311,18 @@ class Member_account extends MHT_Controller
         $this->load->model('manage/member_account_check_model');
         $account = $this->member_account_check_model->get_all();
         $post = $this->input->post(null, true);
+        $msg = '';
         foreach($post as $key => $val){
-            $msg = '';
-            $tmp = $val;
-            if($tmp){
-                for($i=0; $i<count($account); $i++){
-                    if($account[$i][$key] == $tmp && $account[$i]['member_status'] != 'Dead'){
-                        $msg = '已存在';
-                    }
+            if($val){
+                for($i = 0; $i < count($account); $i++){
+                    if($key == 'member_qq'|| $key == 'member_phone'|| $key == 'member_weixin'){
+                        if($account[$i][$key] == $val && $account[$i]['member_status'] != 'Dead') $msg = '已存在';
+                        $arr = array('');
+                     }
                 }
+            }else{
+                $arr[$key] = '不能空';
             }
-
             $arr[$key] = $msg;
         }
         echo json_encode($arr);
