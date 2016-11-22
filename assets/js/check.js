@@ -13,6 +13,7 @@ jQuery.prototype.serializeObject=function(){
 };
 
 function check(){
+    //将表单中所有元素转为对象
     var f = $('#add_memner_accounts').serializeObject();
     var status = true;
     $.each(f,function(i, item){
@@ -20,24 +21,28 @@ function check(){
             case 'member_qq':
             case 'member_phone':
             case 'member_weixin':
+                //如果三缺一显示错误提示
                 if(!f.member_qq && !f.member_phone && !f.member_weixin){
                     $('.msg').html('QQ,手机,微信必填其一');
                     status = false;
                 }else{
+                    //如果其值存在
                     if(item) {
+                        //调用验证QQ方法
                         if(i == 'member_qq'){
-                            var res = vailQQ(item);
-                            if(res)$('.' + i).html(res);
-                            else $('.' + i).empty();
+                            var res = checkQQ(item);
+                            if(res){
+                                $('.' + i).html(res.msg);
+                                if(res.info.updated) $('.msg').html('qq更新:'+res.info.created);
+                                else if(res.info.created) $('.msg').html('qq创建:'+res.info.created);
+                                else $('.msg').empty();
+                            }else{
+                                $('.' + i).empty();
+                            }
                         }
 
-                        if(i == 'member_phone'){
-                            var res = vailPhone(item);
-                            if(res) $('.' + i).html(res);
-                            else $('.' + i).empty();
-                        }
 
-                        $('.msg').empty();
+
                     }
                 }
                 break;
@@ -64,18 +69,15 @@ function check(){
     });
     return false;//status;
 }
-
-function vailPhone(phone) {
+function checkPhone(phone) {
     var message = '';
     var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0-9]{1})|(15[0-3]{1})|(15[5-9]{1})|(18[0-3]{1})|(18[5-9]{1}))+\d{8})$/;
-
     if (phone.length != 11) message = '位数不对';
     else if (!myreg.test(phone)) message = "无效";
     else if((msg = checkIsExist('member_phone', phone)) || (msg = checkIsExist('member_phone2', phone))) message = msg;
     return message;
 }
-
-function vailQQ(qq) {
+function checkQQ(qq) {
     var message = '';
     var myreg = /(\d)$/;
     if (!myreg.test(qq)) message = "无效！";
@@ -83,9 +85,9 @@ function vailQQ(qq) {
     return message;
 }
 //common method
-function checkIsExist(key,val) {
+function checkIsExist(key, val) {
     var flag = false;
-    var data = 'key='+key+'&val='+val;
+    var data = 'key=' + key + '&val=' + val;
     jQuery.ajax({
         url: 'http://192.168.0.8/rc_rcm/index.php/manage/member_account/ajax',
         data: data,
@@ -93,7 +95,7 @@ function checkIsExist(key,val) {
         type: 'post',
         async: false,
         success: function(data) {
-            flag = data.msg;
+            flag = data;
         }
     });
     return flag;
