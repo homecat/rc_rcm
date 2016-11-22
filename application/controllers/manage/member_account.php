@@ -317,11 +317,22 @@ class Member_account extends MHT_Controller
             $condition = array($key => $val);
             $account = $this->member_account_check_model->get_all($condition);
 
+            $is_exsits_info = '';
             for($i = 0; $i < count($account); $i++){
 //            if($account[$i][$key] == $val && $account[$i]['member_status'] != 'Dead') $msg = '已存在';
-                if($account[$i][$key] == $val) $msg = '已存在';
+                if($account[$i][$key] == $val){
+                    $created = isset($account[$i]['create_time'])?$account[$i]['create_time']:null;
+                    $updated = isset($account[$i]['update_time'])?$account[$i]['update_time']:null;
+                    $sales_id = isset($account[$i]['sales_id'])?$account[$i]['sales_id']:null;
+                    if($sales_id){
+                        $sales = $this->member_account_check_model->get_sale_man($sales_id);
+                        print_r($sales);exit();
+                    }
+                    $is_exsits_info = array('created' => $created, 'updated'=> $updated);
+                    $msg = '已存在';
+                }
             }
-            $arr = array('msg' => $msg);
+            $arr = array('msg' => $msg,'info'=> $is_exsits_info);
             echo json_encode($arr);
         }else{
             echo 'Illegal entry';

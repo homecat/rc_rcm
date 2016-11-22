@@ -110,4 +110,15 @@ class Member_account_check_model extends  Member_base_model{
         return $res->result_array();
     }
 
+    public function get_sale_man($id){
+        if(!$id) return false;
+        $this->db->select('sales_name');
+        $this->db->from('member_sales');
+        $this->db->where(array('sales_id' => $id));
+        $this->db->cache_on();
+        $res = $this->db->get();
+        $this->db->cache_off();
+        return $res->result_array();
+    }
+
 }
