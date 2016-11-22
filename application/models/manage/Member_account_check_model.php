@@ -100,10 +100,13 @@ class Member_account_check_model extends  Member_base_model{
         return $result;
     }
 
-    public function get_all(){
+    public function get_all($condition){
         $this->db->select('*');
         $this->db->from('member_account');
+        $this->db->where($condition);
+        $this->db->cache_on();
         $res = $this->db->get();
+        $this->db->cache_off();
         return $res->result_array();
     }
 

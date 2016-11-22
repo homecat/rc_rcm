@@ -308,24 +308,25 @@ class Member_account extends MHT_Controller
     }
 
     public function ajax(){
-        $this->load->model('manage/member_account_check_model');
-        $account = $this->member_account_check_model->get_all();
-        $post = $this->input->post(null, true);
         $msg = '';
-        foreach($post as $key => $val){
-            if($val){
-                for($i = 0; $i < count($account); $i++){
-                    if($key == 'member_qq'|| $key == 'member_phone'|| $key == 'member_weixin'){
-                        if($account[$i][$key] == $val && $account[$i]['member_status'] != 'Dead') $msg = '已存在';
-                        $arr = array('');
-                     }
-                }
-            }else{
-                $arr[$key] = '不能空';
+        $this->load->model('manage/member_account_check_model');
+
+        $key = $this->input->post('key', true);
+        $val = $this->input->post('val', true);
+        if($key&&$val){
+            $condition = array($key => $val);
+            $account = $this->member_account_check_model->get_all($condition);
+
+            for($i = 0; $i < count($account); $i++){
+//            if($account[$i][$key] == $val && $account[$i]['member_status'] != 'Dead') $msg = '已存在';
+                if($account[$i][$key] == $val) $msg = '已存在';
             }
-            $arr[$key] = $msg;
+            $arr = array('msg' => $msg);
+            echo json_encode($arr);
+        }else{
+            echo 'Illegal entry';
         }
-        echo json_encode($arr);
+
     }
 
     // 删除数据

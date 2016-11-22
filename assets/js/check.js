@@ -25,25 +25,16 @@ function check(){
                     status = false;
                 }else{
                     if(item) {
-                        var message_number;
-
                         if(i == 'member_qq'){
                             var res = vailQQ(item);
-                            if(res){
-                                message_number = 1;
-                                $('.' + i).html(message);
-                            }else{
-                                $('.' + i).empty();
-                            }
+                            if(res)$('.' + i).html(res);
+                            else $('.' + i).empty();
                         }
 
                         if(i == 'member_phone'){
                             var res = vailPhone(item);
-                            if(res){
-                                $('.' + i).html(res);
-                            }else{
-                                $('.' + i).empty();
-                            }
+                            if(res) $('.' + i).html(res);
+                            else $('.' + i).empty();
                         }
 
                         $('.msg').empty();
@@ -75,45 +66,34 @@ function check(){
 }
 
 function vailPhone(phone) {
-    var message = "";
+    var message = '';
     var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0-9]{1})|(15[0-3]{1})|(15[5-9]{1})|(18[0-3]{1})|(18[5-9]{1}))+\d{8})$/;
-    if (phone.length != 11) {
-        message = "位数不对";
-    }
-    if (!myreg.test(phone)) {
-        message = "无效";
-    }
-    /*    if (checkPhoneIsExist()) {
-     message = "该手机号码已经被绑定！";
-     }*/
+
+    if (phone.length != 11) message = '位数不对';
+    else if (!myreg.test(phone)) message = "无效";
+    else if((msg = checkIsExist('member_phone', phone)) || (msg = checkIsExist('member_phone2', phone))) message = msg;
     return message;
 }
 
 function vailQQ(qq) {
-    var message = "";
+    var message = '';
     var myreg = /(\d)$/;
-    if (!myreg.test(qq)) {
-        message = "无效！";
-    }
+    if (!myreg.test(qq)) message = "无效！";
+    else if((msg = checkIsExist('member_qq', qq)) || (msg = checkIsExist('member_qq2', qq))) message = msg;
     return message;
 }
-
-function checkPhoneIsExist(phone) {
-    //var phone = jQuery("#phone").val();
-    var flag = true;
+//common method
+function checkIsExist(key,val) {
+    var flag = false;
+    var data = 'key='+key+'&val='+val;
     jQuery.ajax({
-        url: "checkPhone?t=" + (new Date()).getTime(),
-        data: {
-            phone: phone
-        },
-        dataType: "json",
-        type: "GET",
+        url: 'http://192.168.0.8/rc_rcm/index.php/manage/member_account/ajax',
+        data: data,
+        dataType: 'json',
+        type: 'post',
         async: false,
         success: function(data) {
-            var status = data.status;
-            if (status == "0") {
-                flag = false;
-            }
+            flag = data.msg;
         }
     });
     return flag;
