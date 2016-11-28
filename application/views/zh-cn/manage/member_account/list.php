@@ -13,6 +13,7 @@
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/datePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/check.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/check_process.js"></script>
 <script type="text/javascript">
 $(function(){ 
 	$('#edit_member_account').attr('src','');
@@ -76,7 +77,7 @@ function editBoxHide(){
 <!-- 2016-5-24 -->
 <div class="p5" style="min-width:1382px;">
     <div class="mainstyle">
-        <form method="post" name="add_memner_account" id="add_memner_accounts" action="<?php echo site_url('manage/member_account/add').'/'.$sign.'/'.$page;?>">
+        <form method="post" name="add_memner_account" id="add_member_accounts" action="<?php echo site_url('manage/member_account/add').'/'.$sign.'/'.$page;?>">
             <table cellpadding="0" cellspacing="0">
                 <tr>
                     <td>姓名<span class="member_name  red"></span></td>

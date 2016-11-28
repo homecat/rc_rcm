@@ -319,16 +319,15 @@ class Member_account extends MHT_Controller
 
             $is_exsits_info = '';
             for($i = 0; $i < count($account); $i++){
-//            if($account[$i][$key] == $val && $account[$i]['member_status'] != 'Dead') $msg = '已存在';
                 if($account[$i][$key] == $val){
                     $created = isset($account[$i]['create_time'])?$account[$i]['create_time']:null;
                     $updated = isset($account[$i]['update_time'])?$account[$i]['update_time']:null;
                     $sales_id = isset($account[$i]['sales_id'])?$account[$i]['sales_id']:null;
                     if($sales_id){
                         $sales = $this->member_account_check_model->get_sale_man($sales_id);
-                        print_r($sales);exit();
                     }
-                    $is_exsits_info = array('created' => $created, 'updated'=> $updated);
+                    $is_exsits_info = array('created' => $created, 'updated'=> $updated, 'creater'=>$sales[0]['sales_name']);
+                    if(!empty($sales[0]['real_account'])) array_push($is_exsits_info, array('real_account'=>$sales[0]['real_account']));
                     $msg = '已存在';
                 }
             }

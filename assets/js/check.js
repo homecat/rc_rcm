@@ -1,102 +1,51 @@
-jQuery.prototype.serializeObject=function(){
-    var a,o,h,i,e;
-    a=this.serializeArray();
-    o={};
-    h=o.hasOwnProperty;
-    for(i=0;i<a.length;i++){
-        e=a[i];
-        if(!h.call(o,e.name)){
-            o[e.name]=e.value;
-        }
-    }
-    return o;
+//基本类
+
+var Account = function( form_id ){
+    this.form_id = form_id;
 };
-
-function check(){
-    //将表单中所有元素转为对象
-    var f = $('#add_memner_accounts').serializeObject();
-    var status = true;
-    $.each(f,function(i, item){
-        switch(i){
-            case 'member_qq':
-            case 'member_phone':
-            case 'member_weixin':
-                //如果三缺一显示错误提示
-                if(!f.member_qq && !f.member_phone && !f.member_weixin){
-                    $('.msg').html('QQ,手机,微信必填其一');
-                    status = false;
-                }else{
-                    //如果其值存在
-                    if(item) {
-                        //调用验证QQ方法
-                        if(i == 'member_qq'){
-                            var res = checkQQ(item);
-                            if(res){
-                                $('.' + i).html(res.msg);
-                                if(res.info.updated) $('.msg').html('qq更新:'+res.info.created);
-                                else if(res.info.created) $('.msg').html('qq创建:'+res.info.created);
-                                else $('.msg').empty();
-                            }else{
-                                $('.' + i).empty();
-                            }
-                        }
-
-
-
-                    }
-                }
-                break;
-            case 'member_name':
-            case 'member_info':
-                if(!item){
-                    $('.'+i).html('必填');
-                    status = false;
-                }else{
-                    $('.'+i).empty();
-                }
-                break;
-            case 'member_status':
-            case 'member_from':
-            case 'channel':
-                if(!item){
-                    $('.'+i).html('必选');
-                    status = false;
-                }else{
-                    $('.'+i).empty();
-                }
-                break;
-        };
-    });
-    return false;//status;
-}
-function checkPhone(phone) {
-    var message = '';
-    var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0-9]{1})|(15[0-3]{1})|(15[5-9]{1})|(18[0-3]{1})|(18[5-9]{1}))+\d{8})$/;
-    if (phone.length != 11) message = '位数不对';
-    else if (!myreg.test(phone)) message = "无效";
-    else if((msg = checkIsExist('member_phone', phone)) || (msg = checkIsExist('member_phone2', phone))) message = msg;
-    return message;
-}
-function checkQQ(qq) {
-    var message = '';
-    var myreg = /(\d)$/;
-    if (!myreg.test(qq)) message = "无效！";
-    else if((msg = checkIsExist('member_qq', qq)) || (msg = checkIsExist('member_qq2', qq))) message = msg;
-    return message;
-}
-//common method
-function checkIsExist(key, val) {
-    var flag = false;
-    var data = 'key=' + key + '&val=' + val;
-    jQuery.ajax({
-        url: 'http://192.168.0.8/rc_rcm/index.php/manage/member_account/ajax',
-        data: data,
-        dataType: 'json',
-        type: 'post',
-        async: false,
-        success: function(data) {
-            flag = data;
-        }
-    });
-    return flag;
+Account.prototype = {
+    //根据ID取得表单数据key=val串
+    get_form_data:function(){
+        return $('#' + this.form_id).serializeArray();
+    },
+    //显示已存在qq/phone关联信息
+    get_exists_info:function( id ){
+        var info = '';
+        if(this.sales_man)         info += this.sales_man;
+        if(this.real_account)      info += this.real_account;
+        if(this.create_time)       info += this.create_time;
+        else if(this.update_time) info += this.update_time;
+        return info;
+    },
+    check_phone:function( phone ) {
+        var msg = '',message = '';
+        var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0-9]{1})|(15[0-3]{1})|(15[5-9]{1})|(18[0-3]{1})|(18[5-9]{1}))+\d{8})$/;
+        if (phone.length != 11) msg = '位数不对';
+        else if ( !myreg.test( phone )) msg = "无效";
+        else if(( message = this.check_is_exist( 'member_phone', phone )) || ( message = this.check_is_exist('member_phone2', phone ))) message = msg;
+        return msg;
+    },
+    check_qq:function( qq ) {
+        var msg = '';
+        var myreg = /(\d)$/;
+        if (!myreg.test( qq )) msg = "无效！";
+        else if(( msg = this.check_is_exist('member_qq', qq )) || ( msg = this.check_is_exist('member_qq2', qq ))) return msg;
+        return msg;
+    },
+    //common method
+    check_is_exist:function( key, val ) {
+        var flag = false;
+        var data = 'key=' + key + '&val=' + val;
+        $.ajax({
+            url: 'http://192.168.0.8/rc_rcm/index.php/manage/member_account/ajax',
+            data: data,
+            dataType: 'json',
+            type: 'post',
+            async: false,
+            success: function( data ) {
+                flag = data;
+            }
+        });
+        return flag;
+    }
 }

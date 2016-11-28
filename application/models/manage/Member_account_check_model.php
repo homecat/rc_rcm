@@ -107,7 +107,10 @@ class Member_account_check_model extends  Member_base_model{
         $this->db->cache_on();
         $res = $this->db->get();
         $this->db->cache_off();
-        return $res->result_array();
+
+        $total_row = $res->num_rows();
+        if ($total_row < 1) return false;
+        else return $res->result_array();
     }
 
     public function get_sale_man($id){
