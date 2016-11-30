@@ -120,7 +120,7 @@ function editBoxHide(){
                         </select>
                     </td>
                     <td><input type="text" name="member_info" id="add_member_info" style="width:330px;" value="abc info" /></td>
-                    <td><input type="submit" id="add_member_account_submit" value="新增客户" onclick="return check();" /></td>
+                    <td><input type="button" id="add_member_account_submit" value="新增客户" onclick="return check();" /></td>
                 </tr>
             </table>
         </form>

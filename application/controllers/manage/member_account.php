@@ -275,8 +275,6 @@ class Member_account extends MHT_Controller
             $this->member_status_model->save(0,$status); // save status
         }
 
-
-
         $data['row'] = $row;
         $data['page'] = $page;
         return $this->load->view('manage/member_account/edit', $data);
@@ -313,7 +311,7 @@ class Member_account extends MHT_Controller
 
         $key = $this->input->post('key', true);
         $val = $this->input->post('val', true);
-        if($key&&$val){
+        if($key && $val){
             $condition = array($key => $val);
             $account = $this->member_account_check_model->get_all($condition);
 
@@ -323,11 +321,12 @@ class Member_account extends MHT_Controller
                     $created = isset($account[$i]['create_time'])?$account[$i]['create_time']:null;
                     $updated = isset($account[$i]['update_time'])?$account[$i]['update_time']:null;
                     $sales_id = isset($account[$i]['sales_id'])?$account[$i]['sales_id']:null;
+                    $real_account = isset($account[$i]['real_account'])?$account[$i]['real_account']:null;
                     if($sales_id){
                         $sales = $this->member_account_check_model->get_sale_man($sales_id);
                     }
-                    $is_exsits_info = array('created' => $created, 'updated'=> $updated, 'creater'=>$sales[0]['sales_name']);
-                    if(!empty($sales[0]['real_account'])) array_push($is_exsits_info, array('real_account'=>$sales[0]['real_account']));
+                    $is_exsits_info = array('create_time' => $created, 'update_time'=> $updated, 'sales_name'=>$sales[0]['sales_name']);
+                    if($real_account) $is_exsits_info['real_account'] = $real_account ;
                     $msg = '已存在';
                 }
             }
