@@ -50,7 +50,7 @@ $active_record = TRUE;
 
 if(HOST_DATABASE=='TEST')
 {
-	$db['default']['hostname'] = '192.168.0.8';
+	$db['default']['hostname'] = 'localhost';
 	$db['default']['username'] = 'root';
 	$db['default']['password'] = '123456';
 	$db['default']['database'] = 'work_rc_crm';

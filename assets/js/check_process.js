@@ -26,11 +26,39 @@ check_process.prototype.grouping = function(){
         }
     }
     this.m5 = ms;
-    console.log(this.m3);
-    console.log(this.m5);
     return this;
 }
 
+check_process.prototype.is_empty = function(){
+    $.each(this.m5, function(index, val){
+        if('' == val.value){
+            $('.' + val.name).html('必填');
+        }else{
+            $('.' + val.name).empty();
+        }
+    });
+    var i = 0;
+    $.each(this.m3, function(index, val){
+        if('' == val.value){
+            i++;
+        }else{
+            $('.' + val.name).empty();
+        }
+        if(i == (this.references.size = function(){
+            var n, count = 0;
+            for(n in this){
+                if(this.hasOwnProperty(n)){
+                    count++;
+                }
+            }
+            console.log(count);
+            return count;
+        })){
+            $('.msg').html('qq/手机/微信必填一项');
+        }
+    });
+    return this;
+}
 check_process.prototype.one_thems_fn = function(){
     //计算QQ/手机/微信...，有多少个是否被填写
     var msg_qq = '', msg_weixin = '', msg_phone;
@@ -95,6 +123,6 @@ check_process.prototype.one_thems_fn = function(){
 // 在这里测试运行代码
 function check(){
     var t = new check_process('add_member_accounts');
-    t.grouping();
+    t.grouping().is_empty();
     return false;
 };
