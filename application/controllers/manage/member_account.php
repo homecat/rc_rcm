@@ -306,36 +306,34 @@ class Member_account extends MHT_Controller
     }
 
     public function ajax(){
-        $msg = '';
+        $is_exsits_info = '';
         $this->load->model('manage/member_account_check_model');
-
         $key = $this->input->post('key', true);
         $val = $this->input->post('val', true);
         if($key && $val){
             $condition = array($key => $val);
             $account = $this->member_account_check_model->get_all($condition);
-
-            $is_exsits_info = '';
             for($i = 0; $i < count($account); $i++){
+                //如果查询结果同表单的相同就返回数据库中的相关信息
                 if($account[$i][$key] == $val){
+                    $exists = '已存在';
                     $created = isset($account[$i]['create_time'])?$account[$i]['create_time']:null;
                     $updated = isset($account[$i]['update_time'])?$account[$i]['update_time']:null;
                     $sales_id = isset($account[$i]['sales_id'])?$account[$i]['sales_id']:null;
                     $real_account = isset($account[$i]['real_account'])?$account[$i]['real_account']:null;
-                    if($sales_id){
-                        $sales = $this->member_account_check_model->get_sale_man($sales_id);
-                    }
-                    $is_exsits_info = array('create_time' => $created, 'update_time'=> $updated, 'sales_name'=>$sales[0]['sales_name']);
+                    //查询负责人姓名
+                    if($sales_id) $sales = $this->member_account_check_model->get_sale_man($sales_id);
+                    $is_exsits_info = array('exists'=>$exists, 'create_time' => $created, 'update_time'=> $updated, 'sales_name'=>$sales[0]['sales_name']);
+                    //MT4是否为空
                     if($real_account) $is_exsits_info['real_account'] = $real_account ;
-                    $msg = '已存在';
+                    echo json_encode($is_exsits_info);
+                }else{
+                    return false;
                 }
             }
-            $arr = array('msg' => $msg,'info'=> $is_exsits_info);
-            echo json_encode($arr);
         }else{
-            echo 'Illegal entry';
+            return false;
         }
-
     }
 
     // 删除数据
