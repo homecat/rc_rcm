@@ -65,5 +65,4 @@ function check(){
     var t = new check_process(formname);
     t.grouping().is_empty().check().submit(formname);
     return false;
-    // document.getElementById(formname).submit();
 };

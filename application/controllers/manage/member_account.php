@@ -316,14 +316,13 @@ class Member_account extends MHT_Controller
             for($i = 0; $i < count($account); $i++){
                 //如果查询结果同表单的相同就返回数据库中的相关信息
                 if($account[$i][$key] == $val){
-                    $exists = '已存在';
                     $created = isset($account[$i]['create_time'])?$account[$i]['create_time']:null;
                     $updated = isset($account[$i]['update_time'])?$account[$i]['update_time']:null;
                     $sales_id = isset($account[$i]['sales_id'])?$account[$i]['sales_id']:null;
                     $real_account = isset($account[$i]['real_account'])?$account[$i]['real_account']:null;
                     //查询负责人姓名
                     if($sales_id) $sales = $this->member_account_check_model->get_sale_man($sales_id);
-                    $is_exsits_info = array('exists'=>$exists, 'create_time' => $created, 'update_time'=> $updated, 'sales_name'=>$sales[0]['sales_name']);
+                    $is_exsits_info = array('create_time' => $created, 'update_time'=> $updated, 'sales_name'=>$sales[0]['sales_name']);
                     //MT4是否为空
                     if($real_account) $is_exsits_info['real_account'] = $real_account ;
                     echo json_encode($is_exsits_info);
