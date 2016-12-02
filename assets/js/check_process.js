@@ -29,7 +29,9 @@ check_process.prototype.grouping = function(){
 }
 //检查是否为空
 check_process.prototype.is_empty = function(){
-    var status = true;
+    var status = true; 
+    var i = 0; 
+
     $.each(this.m5, function(index, val){
         if('' == val.value) {
             $('.' + val.name).html('必填');
@@ -37,10 +39,15 @@ check_process.prototype.is_empty = function(){
         }
         else  $('.' + val.name).empty();
     });
-    var i = 0;
+
+var s = '';
     $.each(this.m3, function(index, val){
-        if('' == val.value) i++;
-        else $('.' + val.name).empty();
+        if('' == val.value) {
+            i++;
+            s = val.name;
+            console.log(s);
+            $('.' + s).empty();
+        }
         if(i == 3){
             $('.msg').html('qq/手机/微信必填一项');
             status = false;
