@@ -4,7 +4,7 @@ var check_process   = function( form_id ){
     this.references = ['member_qq','member_phone','member_weixin'];
     this.m3  = []; //可选其一项
     this.m5  = []; //必填项
-    this.msg = []; //规则提示
+    this.status = []; //规则提示
 };
 //继承Account
 check_process.prototype = new Account();
@@ -55,18 +55,22 @@ var s = '';
     this.is_success = status;
     return this;
 }
-//检查是否为空
+
 check_process.prototype.check = function(){
     var m3 = this.m3;
     if(this.is_empty()){
-        $('.member_qq').empty();
-        $('.member_weixin').empty();
-        $('.member_phone').empty();
+        $('.msg').empty();
 
         for(var x in m3){
-            if(m3[x].name.indexOf('member_qq') != -1) this.check_qq(m3[x].value);
-            if(m3[x].name.indexOf('member_weixin') != -1) this.check_weixin(m3[x].value);
-            if(m3[x].name.indexOf('member_phone') != -1) this.check_phone(m3[x].value);
+            if(m3[x].name.indexOf('member_qq') != -1){
+                var qq = m3[x].value;
+                this.check_format_qq(qq).check_qq_exists(qq);
+            }
+            if(m3[x].name.indexOf('member_weixin') != -1) this.check_weixin_exists(m3[x].value);
+            if(m3[x].name.indexOf('member_phone') != -1){
+                var phone = m3[x].value;
+                this.check_format_phone(phone).check_phone_exists(phone);
+            }
         }
     }
     return this;

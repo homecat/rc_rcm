@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://192.168.0.118/rc_rcm';
+$config['base_url']	= 'http://192.168.0.8/rc_rcm';
 
 /*
 |--------------------------------------------------------------------------

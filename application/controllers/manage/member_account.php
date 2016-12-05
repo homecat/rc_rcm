@@ -320,11 +320,13 @@ class Member_account extends MHT_Controller
                     $updated = isset($account[$i]['update_time'])?$account[$i]['update_time']:null;
                     $sales_id = isset($account[$i]['sales_id'])?$account[$i]['sales_id']:null;
                     $real_account = isset($account[$i]['real_account'])?$account[$i]['real_account']:null;
+                    $status = isset($account[$i]['member_status'])?$account[$i]['member_status']:null;
                     //查询负责人姓名
                     if($sales_id) $sales = $this->member_account_check_model->get_sale_man($sales_id);
                     $is_exsits_info = array('create_time' => $created, 'update_time'=> $updated, 'sales_name'=>$sales[0]['sales_name']);
                     //MT4是否为空
                     if($real_account) $is_exsits_info['real_account'] = $real_account ;
+                    if($status) $is_exsits_info['status'] = $status ;
                     echo json_encode($is_exsits_info);
                 }else{
                     return false;

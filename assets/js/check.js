@@ -9,7 +9,7 @@ Account.prototype = {
         return $('#' + this.form_id).serializeArray();
     },
     //显示已存在qq/phone/weixin关联信息,
-    get_exists_info:function( id, msg ){
+    show_exists_info:function( id, msg ){
         var tmp_msg = '';
         if(msg){
             $('.' + id).html('已存在');
@@ -23,55 +23,66 @@ Account.prototype = {
         }
         return this;
     },
-    check_qq:function(qq) {
+    check_qq_exists:function(qq) {
+        if((msg = this.check_db('member_qq', qq )) ||  (msg = this.check_db('member_qq2', qq ))) {
+            this.is_success = false;
+            this.show_exists_info('member_qq', msg);
+        }
+        return this;
+    },
+    //检查QQ是否全部为数字
+    check_format_qq:function(qq){
         if(qq){
             var msg;
             var myreg = /(\d)$/;
             if (!myreg.test(qq)) {
                 this.is_success = false;
                 $('.member_qq').html('无效');
-            }
-            else if( (msg = this.check_is_exist('member_qq', qq )) ||  (msg = this.check_is_exist('member_qq2', qq ))) {
-                this.is_success = false;
-                this.get_exists_info('member_qq', msg);
-            }
+            }else $('.member_qq').empty();
         }
         return this;
     },
-    check_weixin:function(weixin) {
+    check_weixin_exists:function(weixin) {
         if(weixin){
             var msg = '';
-            msg = this.check_is_exist('member_weixin', weixin );
-            if(msg) {
+            msg = this.check_db('member_weixin', weixin );
+            if(msg){
                 this.is_success = false;
-                this.get_exists_info('member_weixin', msg);
-            }
+                this.show_exists_info('member_weixin', msg);
+            }else $('.member_weixin').empty();
         }
         return this;
     },
-    check_phone:function(phone) {
+    check_phone_exists:function(phone) {
+        if(( msg = this.check_db( 'member_phone', phone )) || ( msg = this.check_db('member_phone2', phone ))) {
+            this.is_success = false;
+            this.show_exists_info('member_phone', msg);
+        }else $('.msg').empty();
+        return this;
+    },
+    //检查手机的格式和前三位是否正常    
+    check_format_phone:function(phone){
         if(phone){
             var msg;
             var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0-9]{1})|(15[0-3]{1})|(15[5-9]{1})|(18[0-3]{1})|(18[5-9]{1}))+\d{8})$/;
-            if (phone.length != 11)  {
+            if (phone.length != 11){
                 this.is_success = false;
                 $('.member_phone').html('位数不对');
             }
             else if ( !myreg.test(phone)) {
                 this.is_success = false;
                 $('.member_phone').html('无效');
-            }
-            else if(( msg = this.check_is_exist( 'member_phone', phone )) || ( msg = this.check_is_exist('member_phone2', phone ))) this.get_exists_info('member_phone', msg);
-            else $('.msg').empty();
+            }else $('.member_phone').empty();
         }
         return this;
+
     },
     //common method
-    check_is_exist:function( key, val ) {
+    check_db:function( key, val ) {
         var flag = false;
         var data = 'key=' + key + '&val=' + val;
         $.ajax({
-            url: 'http://192.168.0.118/rc_rcm/index.php/manage/member_account/ajax',
+            url: 'http://192.168.0.8/rc_rcm/index.php/manage/member_account/ajax',
             data: data,
             dataType: 'json',
             type: 'post',
