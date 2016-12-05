@@ -71,7 +71,7 @@ Account.prototype = {
         var flag = false;
         var data = 'key=' + key + '&val=' + val;
         $.ajax({
-            url: 'http://192.168.0.8/rc_rcm/index.php/manage/member_account/ajax',
+            url: 'http://192.168.0.118/rc_rcm/index.php/manage/member_account/ajax',
             data: data,
             dataType: 'json',
             type: 'post',

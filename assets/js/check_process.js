@@ -45,7 +45,6 @@ var s = '';
         if('' == val.value) {
             i++;
             s = val.name;
-            console.log(s);
             $('.' + s).empty();
         }
         if(i == 3){
@@ -59,10 +58,16 @@ var s = '';
 //检查是否为空
 check_process.prototype.check = function(){
     var m3 = this.m3;
-    for(var x in m3){
-        if(m3[x].name.indexOf('member_qq') != -1) this.check_qq(m3[x].value);
-        if(m3[x].name.indexOf('member_weixin') != -1) this.check_weixin(m3[x].value);
-        if(m3[x].name.indexOf('member_phone') != -1) this.check_phone(m3[x].value);
+    if(this.is_empty()){
+        $('.member_qq').empty();
+        $('.member_weixin').empty();
+        $('.member_phone').empty();
+
+        for(var x in m3){
+            if(m3[x].name.indexOf('member_qq') != -1) this.check_qq(m3[x].value);
+            if(m3[x].name.indexOf('member_weixin') != -1) this.check_weixin(m3[x].value);
+            if(m3[x].name.indexOf('member_phone') != -1) this.check_phone(m3[x].value);
+        }
     }
     return this;
 }
