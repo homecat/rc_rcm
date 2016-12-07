@@ -10,7 +10,7 @@ var check_process   = function( form_id ){
 check_process.prototype = new Account();
 //分离可选/必填
 check_process.prototype.grouping = function(){
-    var ms  = this.get_form_data();
+    var ms  = this.ms;
     var r = this.references;
     //划分表单中的必填项和可选项
     for(var i in ms){
@@ -29,56 +29,58 @@ check_process.prototype.grouping = function(){
 }
 //检查是否为空
 check_process.prototype.is_empty = function(){
-    var status = true; 
-    var i = 0; 
-
-    $.each(this.m5, function(index, val){
-        if('' == val.value) {
-            $('.' + val.name).html('必填');
-            status = false;
+    for(var x in this.m5){
+        if(''==this.m5[x].value){
+            $('.' + this.m5[x].name).html('必填');
+        }else{
+            $('.' + this.m5[x].name).empty();
         }
-        else  $('.' + val.name).empty();
-    });
+    }
 
-var s = '';
-    $.each(this.m3, function(index, val){
-        if('' == val.value) {
+    var i = 0;
+    for(var x in this.m3){
+        if(''==this.m3[x].value){
             i++;
-            s = val.name;
-            $('.' + s).empty();
+            $('.' + this.m3[x].name).empty();
         }
         if(i == 3){
             $('.msg').html('qq/手机/微信必填一项');
-            status = false;
-        }
-    });
-    this.is_success = status;
-    return this;
-}
-
-check_process.prototype.check = function(){
-    var m3 = this.m3;
-    if(this.is_empty()){
-        $('.msg').empty();
-
-        for(var x in m3){
-            if(m3[x].name.indexOf('member_qq') != -1){
-                var qq = m3[x].value;
-                this.check_format_qq(qq).check_qq_exists(qq);
-            }
-            if(m3[x].name.indexOf('member_weixin') != -1) this.check_weixin_exists(m3[x].value);
-            if(m3[x].name.indexOf('member_phone') != -1){
-                var phone = m3[x].value;
-                this.check_format_phone(phone).check_phone_exists(phone);
-            }
+        }else{
+            $('.msg').empty();
         }
     }
     return this;
 }
-// 在这里测试运行代码
-function check(){
+
+//格式检查正则
+check_process.prototype.check_format = function(){
+    for(var x in this.m3){
+        if('member_qq' == this.m3[x].name)    this.check_format_qq(this.m3[x].value);
+        if('member_phone' == this.m3[x].name) this.check_format_phone(this.m3[x].value);
+    }
+    return this;
+}
+
+check_process.prototype.check_exists = function(){
+    var m3 = this.m3;
+    if(m3){
+        for(var x in m3){
+            if(m3[x].name.indexOf('member_qq') != -1)     this.check_qq_exists(m3[x].value);
+            if(m3[x].name.indexOf('member_weixin') != -1) this.check_weixin_exists(m3[x].value);
+            if(m3[x].name.indexOf('member_phone') != -1)  this.check_phone_exists(m3[x].value);
+        }
+    }else{
+        $('.msg').empty();
+    }
+
+    return this;
+}
+
+function main(){
     var formname = 'add_member_accounts';
     var t = new check_process(formname);
-    t.grouping().is_empty().check().submit(formname);
+
+    t.get_form_data().grouping().is_empty().check_format().check_exists();
+    // t.grouping().is_empty().check().submit(formname);
     return false;
 };

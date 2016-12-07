@@ -2,11 +2,13 @@
 var Account = function( form_id ){
     this.form_id = form_id;
     this.is_success = true;
+    this.ms = [];
 };
 Account.prototype = {
     //根据ID取得表单数据key=val串
     get_form_data:function(){
-        return $('#' + this.form_id).serializeArray();
+        this.ms = $('#' + this.form_id).serializeArray();
+        return this;
     },
     //显示已存在qq/phone/weixin关联信息,
     show_exists_info:function( id, msg ){
@@ -23,14 +25,7 @@ Account.prototype = {
         }
         return this;
     },
-    check_qq_exists:function(qq) {
-        if((msg = this.check_db('member_qq', qq )) ||  (msg = this.check_db('member_qq2', qq ))) {
-            this.is_success = false;
-            this.show_exists_info('member_qq', msg);
-        }
-        return this;
-    },
-    //检查QQ是否全部为数字
+    //定义QQ是否全部为数字
     check_format_qq:function(qq){
         if(qq){
             var msg;
@@ -42,25 +37,7 @@ Account.prototype = {
         }
         return this;
     },
-    check_weixin_exists:function(weixin) {
-        if(weixin){
-            var msg = '';
-            msg = this.check_db('member_weixin', weixin );
-            if(msg){
-                this.is_success = false;
-                this.show_exists_info('member_weixin', msg);
-            }else $('.member_weixin').empty();
-        }
-        return this;
-    },
-    check_phone_exists:function(phone) {
-        if(( msg = this.check_db( 'member_phone', phone )) || ( msg = this.check_db('member_phone2', phone ))) {
-            this.is_success = false;
-            this.show_exists_info('member_phone', msg);
-        }else $('.msg').empty();
-        return this;
-    },
-    //检查手机的格式和前三位是否正常    
+    //定义手机的格式和前三位是否正常    
     check_format_phone:function(phone){
         if(phone){
             var msg;
@@ -77,6 +54,36 @@ Account.prototype = {
         return this;
 
     },
+
+    check_qq_exists:function(qq) {
+        var number = qq;
+        if(number){
+            var qq1 = this.check_db('member_qq', number );
+            var qq2 = this.check_db('member_qq2', number );
+            if(qq1) this.show_exists_info('member_qq', qq1);
+            else this.show_exists_info('member_qq', qq2);
+        }
+        return this;
+    },
+    check_weixin_exists:function(weixin) {
+        if(weixin){
+            var msg = this.check_db('member_weixin', weixin );
+            if(msg){
+                this.show_exists_info('member_weixin', msg);
+            }else $('.member_weixin').empty();
+        }
+        return this;
+    },
+    check_phone_exists:function(phone) {
+        var number = phone;
+        if(number){
+            var phone1 = this.check_db('member_phone', number);
+            var phone2 = this.check_db('member_phone2', number );
+            if(phone1) this.show_exists_info('member_phone', phone1);
+            else this.show_exists_info('member_qq', phone2);
+        }
+        return this;
+    },
     //common method
     check_db:function( key, val ) {
         var flag = false;
@@ -89,7 +96,6 @@ Account.prototype = {
             async: false,
             success: function( data ) {
                 flag = data;
-                if(null == flag) this.is_success = false;
             }
         });
         return flag;
