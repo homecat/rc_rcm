@@ -2,16 +2,16 @@
 var check_process   = function( form_id ){
     Account.call( this, form_id );
     this.references = ['member_qq','member_phone','member_weixin'];
-    this.m3  = []; //可选其一项
-    this.m5  = []; //必填项
-    this.status = []; //规则提示
+    this.m3         = []; //可选其一项
+    this.m5         = []; //必填项
+    this.status     = []; //规则提示
 };
 //继承Account
 check_process.prototype = new Account();
 //分离可选/必填
 check_process.prototype.grouping = function(){
     var ms  = this.ms;
-    var r = this.references;
+    var r   = this.references;
     //划分表单中的必填项和可选项
     for(var i in ms){
         for(var j in r){
@@ -30,11 +30,12 @@ check_process.prototype.grouping = function(){
 //检查是否为空
 check_process.prototype.is_empty = function(){
     for(var x in this.m5){
-        if(''==this.m5[x].value){
+        if(''==this.m5[x].value) {
+            this.is_success = false;
             $('.' + this.m5[x].name).html('必填');
-        }else{
-            $('.' + this.m5[x].name).empty();
         }
+        else $('.' + this.m5[x].name).empty();
+
     }
 
     var i = 0;
@@ -43,11 +44,13 @@ check_process.prototype.is_empty = function(){
             i++;
             $('.' + this.m3[x].name).empty();
         }
-        if(i == 3){
+        if(i == 3) {
+            this.is_success = false;
+            $('#add_member_from').removeAttr('disabled');
+            $('#add_member_status').removeAttr('disabled');
             $('.msg').html('qq/手机/微信必填一项');
-        }else{
-            $('.msg').empty();
         }
+        else $('.msg').empty();
     }
     return this;
 }
@@ -72,15 +75,13 @@ check_process.prototype.check_exists = function(){
     }else{
         $('.msg').empty();
     }
-
     return this;
 }
 
 function main(){
     var formname = 'add_member_accounts';
     var t = new check_process(formname);
-
-    t.get_form_data().grouping().is_empty().check_format().check_exists();
+    t.get_form_data().grouping().is_empty().check_format().check_exists().submit(formname);
     // t.grouping().is_empty().check().submit(formname);
     return false;
 };
